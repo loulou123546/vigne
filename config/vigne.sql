@@ -29,6 +29,7 @@ CREATE TABLE vigne.`parcel` (
   `farm_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `area` int(11) NOT NULL,
+  `density` decimal(10, 2) NOT NULL,
   `type` tinyint(4) NOT NULL,
   `date_planting` datetime,
   `city` varchar(100),

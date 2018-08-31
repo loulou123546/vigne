@@ -4,6 +4,7 @@ import compression from 'compression'
 import Debug from 'debug'
 import express from 'express'
 import helmet from 'helmet'
+import bodyParser from 'body-parser'
 import router from './middlewares/router'
 
 const app = express()
@@ -25,6 +26,12 @@ app.use(compression())
 // Static files.
 app.use(express.static('public'))
 app.use(express.static('assets'))
+
+// Post parameters
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+  extended: true
+})); 
 
 // Routing.
 app.use(router)

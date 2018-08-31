@@ -6,21 +6,30 @@
 <div class="w3-row">
     <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
     <div class="w3-col s12 m8 l4">
-        <form class="w3-container w3-card-4 w3-white">                
-            <p><label>Data text</label>
-            <input class="w3-input w3-border" name="name" type="text"></p>
+        <form class="w3-container w3-card-4 w3-white" action="/parcel/add" method="post">                
+            <p><label>Nom</label>
+            <input class="w3-input w3-border" name="name" type="text" placeholder="Nom" value="<%= parcel.name || ''%>"></p>
             
-            <p><label>Data select</label>
-                <select name="type">
-                    <option value="type1">1</option>
-                    <option value="type2">2</option> <!-- loaded on server -->
-                    <option value="type3">3</option>
-                </select>
+            <p><label>Variété</label>
+                <select type="select" name="type" value="<%= parcel.type || 0%>">
+				    <% for(var i = 1 ; i < parcel_types.length ; i++) { %>
+				      <option value="<%= i %>"><%= parcel_types[i] %></option>
+				    <% } %>
+				</select>
             </p>
             
-            <p><label>Data number</label>
-            <input class="w3-input w3-border" name="area" type="number" step="0.1"></p>
+            <p><label>Surface (m2)</label>
+            <input class="w3-input w3-border" name="area" type="number" step="1" placeholder="0" value="<%= parcel.area || '' %>"></p>
             
+            <p><label>Densité</label>
+            <input class="w3-input w3-border" name="density" type="number" step="0.01" placeholder="0.0" value="<%= parcel.density || '' %>"></p>
+
+            <p><label>Date de plantation</label>
+            <input class="w3-input w3-border" name="date_planting" type="date" value="<%= parcel.date_planting || '' %>"></p>
+
+            <p><label>Commune</label>
+            <input class="w3-input w3-border" name="city" type="text" value="<%= parcel.city || '' %>"></p>
+
             <p class="w3-center"><button class="w3-btn action-bg onhover-bg">Valider <i class="fa fa-check-square"></i></button></p>
         </form>
     </div>
