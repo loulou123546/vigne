@@ -102,3 +102,7 @@ table {
 td .w3-button {
     display: inline!important;
 }
+
+.add-parcel {
+  margin-left: 32px;
+}
