@@ -11,31 +11,31 @@ router.get('/', (request, response) => {
 })
 
 // Get parcelle.
-router.get('/parcelle/:pid(\\d+)', (request, response) => {
+router.get('/parcel/:pid(\\d+)', (request, response) => {
   response.render('layout', {
-    view: 'parcelle',
+    view: 'parcel',
     title: 'Parcelle',
   })
 })
 
 // Add parcelle.
-router.post('/parcelle/add', (request, response) => {
+router.post('/parcel/add', (request, response) => {
   response.render('layout', {
-    view: 'form-parcelle',
+    view: 'form-parcel',
     title: 'Ajouter une parcelle',
   })
 })
 
 // Edit parcelle.
-router.post('/parcelle/:pid(\\d+)/edit', (request, response) => {
+router.post('/parcel/:pid(\\d+)/edit', (request, response) => {
   response.render('layout', {
-    view: 'form-parcelle',
+    view: 'form-parcel',
     title: 'Éditer une parcelle',
   })
 })
 
 // Delete parcelle.
-router.get('/parcelle/:pid(\\d+)/delete', (request, response) => {
+router.get('/parcel/:pid(\\d+)/delete', (request, response) => {
   //TODO : delete parcelle
   response.redirect('/')
 })
