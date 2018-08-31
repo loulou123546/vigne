@@ -1,0 +1,31 @@
+{
+  "name": "vigne",
+  "version": "1.0.0",
+  "description": "Vigne",
+  "main": "index.js",
+  "scripts": {
+    "dev": "DEBUG=vigne nodemon -- index.js",
+    "start": "node -r babel-register index.js"
+  },
+  "keywords": [],
+  "author": "NerOcrO",
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0",
+    "npm": ">=3.8.6"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.4.3",
+    "babel-register": "^6.26.0",
+    "clean-css-cli": "^4.2.0",
+    "debug": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-plugin-import": "^2.13.0",
+    "nodemon": "^1.18.3"
+  }
+}
