@@ -1,6 +1,7 @@
 /* https://colorhunt.co/palette/117699 */
 .main-bg{
-    background-color: #fff1bc!important;
+    /*background-color: #fff1bc!important;*/
+    background-color: #fff3cc!important;
     color: black!important;
 }
 .hero-bg{
@@ -34,12 +35,70 @@
 }
 
 /* W3CSS correctif */
+body {
+    width: 100%;
+    height: 100%;
+}
+table {
+    box-sizing: border-box!important;
+    width: calc(100vw - 64px)!important;
+}
+.w3-table tr {
+    border-bottom-color: #ccc!important;
+}
 .w3-margin-16 {
     margin: 16px;
+}
+.w3-margin-16-32 {
+    margin: 16px 32px;
 }
 .w3-margin-32 {
     margin: 32px;
 }
 .w3-margin-64 {
     margin: 64px;
+}
+
+/* Tooltip */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    /*width: 120px;*/
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 999;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+td .w3-button {
+    display: inline!important;
 }
