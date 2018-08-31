@@ -19,15 +19,17 @@
     </tr>
   </thead>
   <tbody>
+    <% for(var i = 0 ; i < locals.parcels.length ; i++) { %>
     <tr>
-      <td class="tooltip"><a href="parcel/1">Mon permier champ</a><span class="tooltiptext">&nbsp;Voir les infos&nbsp;</span></td>
+      <td class="tooltip"><a href="parcel/<%= locals.parcels[i].id %>"><%= locals.parcels[i].name %></a><span class="tooltiptext">&nbsp;Voir les infos&nbsp;</span></td>
       <td>12 000</td>
       <td>24 Août</td>
       <td>
-        <a href="observation/add" class="w3-button w3-green tooltip"><span class="tooltiptext">&nbsp;Noter une observation&nbsp;</span><i class="fa fa-plus-square"></i></a>
-        <a href="parcel/1/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext">&nbsp;Modifier la parcelle&nbsp;</span><i class="fa fa-pencil"></i></a>
-        <a href="parcel/1/delete" class="w3-button w3-red tooltip"><span class="tooltiptext">&nbsp;Supprimer la parcelle&nbsp;</span><i class="fa fa-trash"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].id %>/observation/add %>" class="w3-button w3-green tooltip"><span class="tooltiptext">&nbsp;Noter une observation&nbsp;</span><i class="fa fa-plus-square"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext">&nbsp;Modifier la parcelle&nbsp;</span><i class="fa fa-pencil"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].id %>/delete" class="w3-button w3-red tooltip"><span class="tooltiptext">&nbsp;Supprimer la parcelle&nbsp;</span><i class="fa fa-trash"></i></a>
       </td>
     </tr>
+    <% } %>
   </tbody>
 </table>

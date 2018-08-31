@@ -8,8 +8,8 @@ export const PARCEL_TYPES = [
 ];
 
 const HOST = 'localhost';
-const USER = 'root';
-const PASSWORD = 'neo&100s';
+const USER = '...';
+const PASSWORD = '...';
 const DATABASE = 'vigne';
 
 export const createConnection = () => {

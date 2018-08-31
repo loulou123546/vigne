@@ -1,22 +1,35 @@
 import express from 'express'
+import moment from 'moment'
 import * as db from './db';
 
 const router = express.Router()
 
 // Dashboard.
 router.get('/', (request, response) => {
-  response.render('layout', {
-    view: 'dashboard',
-    title: 'Tableau de bord',
-  })
+  const connection = db.createConnection();
+  connection.query('SELECT * FROM parcel', (error, results, fields) => {
+    if (error) throw error
+    response.render('layout', {
+      view: 'dashboard',
+      title: 'Tableau de bord',
+      parcels: results
+    });
+  });
+  connection.end();
 })
 
 // Get parcel.
 router.get('/parcel/:pid(\\d+)', (request, response) => {
-  response.render('layout', {
-    view: 'parcel',
-    title: 'Parcelle',
-  })
+  const connection = db.createConnection();
+  connection.query('SELECT * FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
+    if (error) throw error
+    response.render('layout', {
+      view: 'parcel',
+      title: 'Parcelle',
+      parcel: results[0]
+    });
+  });
+  connection.end();
 })
 
 // Parcel form.
@@ -38,11 +51,9 @@ router.post('/parcel/add', (request, response) => {
   // Insert query
   connection.query('INSERT INTO parcel SET ?', parcelData, (error, results, fields) => {
     if (error) throw error
-    console.log(results);
+    response.redirect('/')
   });
   connection.end();
-  // Redirect to home
-  response.redirect('/');
 })
 
 // Parcel form.
@@ -50,12 +61,16 @@ router.get('/parcel/:pid(\\d+)/edit', (request, response) => {
   const connection = db.createConnection();
   connection.query('SELECT * from parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
     if (error) throw error;
-    console.log(results);
     response.render('layout', {
       view: 'form-parcel',
       title: 'Éditer une parcelle',
       parcel_types: db.PARCEL_TYPES,
-      parcel: results[0]
+      parcel: {
+        ...results[0],
+        // Formatting date for html field 
+        date_planting: moment(results[0].date_planting).format('YYYY-MM-DD');
+      }
+    }
     })
   });
   connection.end();
@@ -68,24 +83,26 @@ router.post('/parcel/:pid(\\d+)/edit', (request, response) => {
   parcelData['farm_id'] = 1;
   // Get connection
   const connection = db.createConnection();
-  // TODO: Insert query
-  connection.query('...', parcelData, (error, results, fields) => {
+  // Update query
+  connection.query('UPDATE parcel SET ? WHERE id = ?', [parcelData, request.params.pid], (error, results, fields) => {
     if (error) throw error
-    console.log(results);
+    response.redirect('/')
   });
   connection.end();
-  // Redirect to home
-  response.redirect('/');
 })
 
-// Delete parcelle.
+// Delete parcel.
 router.get('/parcel/:pid(\\d+)/delete', (request, response) => {
-  //TODO : delete parcelle
-  response.redirect('/')
+  const connection = db.createConnection();
+  connection.query('DELETE FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
+    if (error) throw error
+    response.redirect('/')
+  });
+  connection.end();
 })
 
 // Observation form.
-router.get('/observation/add', (request, response) => {
+router.get('/parcel/:pid(\\d+)/observation/add', (request, response) => {
   response.render('layout', {
     view: 'form-observation',
     title: 'Ajouter une observation',
@@ -93,7 +110,7 @@ router.get('/observation/add', (request, response) => {
 })
 
 // Add observation.
-router.post('/observation/add', (request, response) => {
+router.post('/parcel/:pid(\\d+)/observation/add', (request, response) => {
   response.render('layout', {
     view: 'form-observation',
     title: 'Ajouter une observation',
@@ -101,7 +118,7 @@ router.post('/observation/add', (request, response) => {
 })
 
 // Observation form.
-router.get('/observation/:oid(\\d+)/edit', (request, response) => {
+router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => {
   response.render('layout', {
     view: 'form-observation',
     title: 'Éditer une observation',
@@ -109,7 +126,7 @@ router.get('/observation/:oid(\\d+)/edit', (request, response) => {
 })
 
 // Edit observation.
-router.post('/observation/:oid(\\d+)/edit', (request, response) => {
+router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => {
   response.render('layout', {
     view: 'form-observation',
     title: 'Éditer une observation',
@@ -117,7 +134,7 @@ router.post('/observation/:oid(\\d+)/edit', (request, response) => {
 })
 
 // Delete observation.
-router.get('/observation/:oid(\\d+)/delete', (request, response) => {
+router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/delete', (request, response) => {
   //TODO : delete observation
   response.redirect('/')
 })
