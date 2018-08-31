@@ -1,7 +1,6 @@
 'use strict'
 
 import compression from 'compression'
-import csurf from 'csurf'
 import Debug from 'debug'
 import express from 'express'
 import helmet from 'helmet'
