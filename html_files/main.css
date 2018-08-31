@@ -1,0 +1,34 @@
+/* https://colorhunt.co/palette/117699 */
+.main-bg{
+    background-color: #fff1bc!important;
+    color: black!important;
+}
+.hero-bg{
+    background-color: #7dc383!important;
+    color: white!important;
+}
+.action-bg{
+    background-color: #6a9c78!important;
+    color: white!important;
+}
+.hover-bg{
+    background-color: #446e5c!important;
+    color: white!important;
+}
+.onhover-bg:hover{
+    background-color: #446e5c!important;
+    color: white!important;
+}
+
+.hero-text{
+    color: #7dc383!important;
+}
+.action-text{
+    color: #6a9c78!important;
+}
+.hover-text{
+    color: #446e5c!important;
+}
+.onhover-text:hover{
+    color: #446e5c!important;
+}
