@@ -32,3 +32,14 @@
 .onhover-text:hover{
     color: #446e5c!important;
 }
+
+/* W3CSS correctif */
+.w3-margin-16 {
+    margin: 16px;
+}
+.w3-margin-32 {
+    margin: 32px;
+}
+.w3-margin-64 {
+    margin: 64px;
+}
