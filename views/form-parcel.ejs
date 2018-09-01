@@ -6,11 +6,11 @@
 </header>
 
 <ul class="breadcrumb w3-margin-32">
-  <li><a href="/">Tableau de bord</a></li>
-  <% if (locals.parcel) { %>
-  <li><a href="/parcel/<%= locals.parcel.id %>"><%= locals.parcel.name %></a></li>
-  <% } %>
-  <li><%= locals.parcel ? 'Edition' : 'Ajout' %> parcelle</li>
+    <li><a href="/">Tableau de bord</a></li>
+    <% if (locals.parcel) { %>
+    <li><a href="/parcel/<%= locals.parcel.id %>"><%= locals.parcel.name %></a></li>
+    <% } %>
+    <li><%= locals.parcel ? 'Edition' : 'Ajout' %> parcelle</li>
 </ul> 
 
 <div class="w3-row">
@@ -39,10 +39,10 @@
       <input class="w3-input w3-border" name="date_planting" type="date" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>"></p>
 
       <p><label style="display:block;">Coordonnées</label>
-        <input class="w3-input w3-border" id="lng" name="lng" type="number" step="0.000001" placeholder="longitude" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;">
-        <input class="w3-input w3-border" id="lat" name="lat" type="number" step="0.000001" placeholder="lagitude"  value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;"></p>
+        <input class="w3-input w3-border w3-left" id="lng" name="lng" type="number" step="0.000001" placeholder="longitude" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;">
+        <input class="w3-input w3-border w3-right" id="lat" name="lat" type="number" step="0.000001" placeholder="lagitude"  value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;"></p>
 
-      <div id='map' style='width: 400px; height: 100%;'></div>
+      <div id='map' style='width: 100%; height: 400px;'></div>
 
       <p class="w3-center"><button class="w3-btn action-bg onhover-bg">Valider <i class="fa fa-check-square"></i></button></p>
     </form>
@@ -51,10 +51,10 @@
 </div>
 
 
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
 <script>
-    let Increment = 0
+    let Increment = 0;
 
     mapboxgl.accessToken = 'pk.eyJ1IjoibG91bG91MTIzNTQ2IiwiYSI6ImNqbGl6MHptcjA2MDczcHIwMTU2ajIxYzIifQ.ju33SqTTHGHZdunbEx7VKg';
     var map = new mapboxgl.Map({
@@ -65,8 +65,8 @@
     });
 
     function createP (lat, long){
-        map.removeLayer("farm" + Increment)
-        Increment++
+        map.removeLayer("farm" + Increment);
+        Increment++;
         map.addLayer({
             "id": "farm" + Increment,
             "type": "symbol",
@@ -93,10 +93,10 @@
                 "icon-image": "myfarm",
                 "icon-size": 0.02
             }
-        })
+        });
 
-        document.getElementById("lng").value = long
-        document.getElementById("lat").value = lat
+        document.getElementById("lng").value = long;
+        document.getElementById("lat").value = lat;
 
         const req = new XMLHttpRequest();
 
@@ -106,7 +106,7 @@
                 if (this.status === 200) {
                     console.log(JSON.parse(this.responseText));
                 } else {
-                    alert("Erreur, aucune communne trouvée")
+                    alert("Erreur, aucune communne trouvée");
                 }
             }
         };
@@ -119,7 +119,7 @@
         map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker.png', function(error, image) {
             if (error) throw error;
             map.addImage('myfarm', image)
-        })
+        });
         map.addLayer({
             "id": "farm0",
             "type": "symbol",
@@ -145,7 +145,8 @@
             "layout": {
                 "icon-image": "unvalid-icon"
             }
-        })
+        });
+      map.resize();
 
     // Center the map on the coordinates of any click and create a marker.
     map.on('click', function (e) {
@@ -161,5 +162,15 @@
     map.on('mouseleave', 'symbols', function () {
         map.getCanvas().style.cursor = '';
     });
+
+    setTimeout(() => {
+      map.resize();
+    }, 50);
+    setTimeout(() => {
+      map.resize();
+    }, 100);
+    setTimeout(() => {
+      map.resize();
+    }, 300);
 });
 </script>
