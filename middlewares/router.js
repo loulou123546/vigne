@@ -110,7 +110,7 @@ router.get('/parcel/:pid(\\d+)/observation/add', (request, response) => {
 })
 
 // Add observation.
-router.post('/parcel/:pid(\\d+)/observation/add', (request, response) => {
+router.post('/parcel/:pid(\\d+)/observation/add', (request, response) => { //duplicate
   response.render('layout', {
     view: 'form-observation',
     title: 'Ajouter une observation',
@@ -118,7 +118,7 @@ router.post('/parcel/:pid(\\d+)/observation/add', (request, response) => {
 })
 
 // Observation form.
-router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => {
+router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => { //never edit
   response.render('layout', {
     view: 'form-observation',
     title: 'Éditer une observation',
@@ -126,7 +126,7 @@ router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response)
 })
 
 // Edit observation.
-router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => {
+router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => { //never edit
   response.render('layout', {
     view: 'form-observation',
     title: 'Éditer une observation',
@@ -134,7 +134,7 @@ router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response
 })
 
 // Delete observation.
-router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/delete', (request, response) => {
+router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/delete', (request, response) => { //never delete
   //TODO : delete observation
   response.redirect('/')
 })

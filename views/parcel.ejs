@@ -1,11 +1,11 @@
 <!-- En tête -->
 <header class="w3-container w3-hide-small hero-bg w3-center w3-margin-32 w3-padding-16">
-    <h1 class="w3-xxxlarge"><b> <%= locals.parcel.name %> </b></h1>
-    <h2 class="w3-xlarge">Rendement : <span class="w3-tag hover-bg">9 540</span> Kg/H</h2>
+    <h1 class="w3-xxxlarge"><b><%= locals.parcel.name %></b></h1>
+    <h2 class="w3-xlarge">Rendement : <span class="w3-tag hover-bg"><%= locals.parcel.rend %></span> Kg/Ha</h2>
 </header>
 <header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center w3-padding-16">
-    <h1 class="w3-xxlarge"><b> <%= locals.parcel.name %> </b></h1>
-    <h2 class="w3-large">Rendement : <span class="w3-tag hover-bg">9 540</span> Kg/H</h2>
+    <h1 class="w3-xxlarge"><b><%= locals.parcel.name %></b></h1>
+    <h2 class="w3-large">Rendement : <span class="w3-tag hover-bg"><%= locals.parcel.rend %></span> Kg/Ha</h2>
 </header>
 
 <div class="w3-bar w3-center">
@@ -20,7 +20,7 @@
             <th>Date</th>
             <th>Data 1</th>
             <th>Data 2</th>
-            <th>Rendement (Kg/H)</th>
+            <th>Rendement (Kg/Ha)</th>
         </tr>
     </thead>
     <tbody>
