@@ -1,31 +1,29 @@
 <!-- En tête -->
 <header class="w3-container w3-hide-small hero-bg w3-center w3-margin-32 w3-padding-16">
-    <h1 class="w3-xxxlarge"><b><%= locals.parcel.name %></b></h1>
-    <h2 class="w3-xlarge">Rendement : <span class="w3-tag hover-bg"><%= locals.parcel.rend %></span> Kg/Ha</h2>
+  <h1 class="w3-xxxlarge"><b><%= locals.parcel.name %></b></h1>
+  <h2 class="w3-xlarge">Rendement : <span class="w3-tag hover-bg"><%= locals.parcel.rend %></span> Kg/Ha</h2>
 </header>
 <header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center w3-padding-16">
-    <h1 class="w3-xxlarge"><b><%= locals.parcel.name %></b></h1>
-    <h2 class="w3-large">Rendement : <span class="w3-tag hover-bg"><%= locals.parcel.rend %></span> Kg/Ha</h2>
+  <h1 class="w3-xxlarge"><b><%= locals.parcel.name %></b></h1>
+  <h2 class="w3-large">Rendement : <span class="w3-tag hover-bg"><%= locals.parcel.rend %></span> Kg/Ha</h2>
 </header>
 
 <ul class="breadcrumb w3-margin-32">
   <li><a href="/">Tableau de bord</a></li>
   <li><%= locals.parcel.name %></li>
-</ul> 
+</ul>
 
 <div class="w3-bar w3-center">
-    <a href="/parcel/<%= locals.parcel.id %>/observation/add" class="w3-btn w3-green"><i class="fa fa-plus-square"></i> Ajouter une observation</a>
-    <a href="/parcel/<%= locals.parcel.id %>/edit" class="w3-btn w3-yellow"><i class="fa fa-pencil"></i> Modifier les informations</a>
-    <a href="/parcel/<%= locals.parcel.id %>/delete" class="w3-btn w3-red"><i class="fa fa-trash"></i> Supprimer la parcelle</a>
+    <a href="/parcel/<%= locals.parcel.parcel_id %>/observation/add" class="w3-btn w3-green"><i class="fa fa-plus-square"></i> Ajouter une observation</a>
+    <a href="/parcel/<%= locals.parcel.parcel_id %>/edit" class="w3-btn w3-yellow"><i class="fa fa-pencil"></i> Modifier les informations</a>
+    <a href="/parcel/<%= locals.parcel.parcel_id %>/delete" class="w3-btn w3-red"><i class="fa fa-trash"></i> Supprimer la parcelle</a>
 </div>
 <br><br>
 <table class="w3-table w3-bordered w3-centered">
     <thead>
         <tr>
             <th>Année</th>
-            <th>Nombre de grappes / m2</th>
-            <th>Poids moyen d'une grappe (kg)</th>
-            <th>Taux de sucre</th>
+            <th>Taux de sucre <%= locals.observations[locals.observations.length - 1] ? (locals.observations[locals.observations.length - 1].sugar_rate_real ? 'réel' : 'prévu') : 'prévu' %></th>
             <th>Rendement (Kg/Ha)</th>
             <th>Actions</th>
         </tr>
@@ -34,12 +32,10 @@
         <% for (var i = 0 ; i < locals.observations.length ; i++) { %>
         <tr>
             <td><%= moment(locals.observations[i].step_1_date).format('YYYY') %></td>
-            <td><%= locals.observations[i].bunch_number / locals.observations[i].plant_number %></td>
-            <td><%= locals.observations[i].weight_real || locals.observations[i].weight || 'Non renseigné' %></td>
             <td><%= locals.observations[i].sugar_rate_real || locals.observations[i].sugar_rate || 'Non renseigné' %></td>
-            <td>....</td>
+            <td><%= locals.parcel.rend %></td>
             <td>
-            <a href="/parcel/<%= locals.parcel.id %>/observation/<%= locals.observations[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Editer l'observation &nbsp; </span><i class="fa fa-pencil"></i></a>
+            <a href="/parcel/<%= locals.parcel.parcel_id %>/observation/<%= locals.observations[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Editer l'observation &nbsp; </span><i class="fa fa-pencil"></i></a>
             </td>
         </tr>
         <% } %>

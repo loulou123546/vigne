@@ -8,7 +8,7 @@
 <ul class="breadcrumb w3-margin-32">
     <li><a href="/">Tableau de bord</a></li>
     <% if (locals.parcel) { %>
-    <li><a href="/parcel/<%= locals.parcel.id %>"><%= locals.parcel.name %></a></li>
+    <li><a href="/parcel/<%= locals.parcel.parcel_id %>"><%= locals.parcel.name %></a></li>
     <% } %>
     <li><%= locals.parcel ? 'Edition' : 'Ajout' %> parcelle</li>
 </ul>
@@ -16,7 +16,7 @@
 <div class="w3-row">
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
   <div class="w3-col s12 m8 l4">
-    <form class="w3-container w3-card-4 w3-white" method="post" action="<%= locals.parcel ? `/parcel/${locals.parcel.id}/edit` : '/parcel/add' %>">
+    <form class="w3-container w3-card-4 w3-white" method="post" action="<%= locals.parcel ? `/parcel/${locals.parcel.parcel_id}/edit` : '/parcel/add' %>">
       <p><label>Nom</label>
       <input class="w3-input w3-border" name="name" type="text" placeholder="Nom" value="<%= locals.parcel ? locals.parcel.name : '' %>"></p>
 
@@ -51,7 +51,7 @@
     </form>
   </div>
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
-</div>
+</div><br>
 
 
 <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
@@ -130,16 +130,6 @@
             createP(e.lngLat.lat, e.lngLat.lng)
         });
 
-        // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
-        map.on('mouseenter', 'symbols', function () {
-            map.getCanvas().style.cursor = 'pointer';
-        });
-
-        // Change it back to a pointer when it leaves.
-        map.on('mouseleave', 'symbols', function () {
-            map.getCanvas().style.cursor = '';
-        });
-        
         setTimeout(() => {
             map.addLayer({
                 "id": "farm0",
@@ -174,4 +164,3 @@
         }, 300);
     });
 </script>
-<br><br>

@@ -7,20 +7,20 @@
 
 <ul class="breadcrumb w3-margin-32">
     <li><a href="/">Tableau de bord</a></li>
-    <li><a href="/parcel/<%= locals.parcel.id %>"><%= locals.parcel.name %></a></li>
+    <li><a href="/parcel/<%= locals.parcel.parcel_id %>"><%= locals.parcel.name %></a></li>
     <li><%= locals.observation ? 'Edition' : 'Ajout' %> observation</li>
-</ul> 
+</ul>
 
 <div class="w3-row">
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
   <div class="w3-col s12 m8 l4">
     <p><label>Saisissez les données d'observation ci-dessous.</label></p>
 
-    <form method="post" action="<%= locals.observation ? `/parcel/${locals.parcel.id}/observation/${locals.observation.id}/edit` : `/parcel/${locals.parcel.id}/observation/add` %>" >
+    <form method="post" action="<%= locals.observation ? `/parcel/${locals.parcel.parcel_id}/observation/${locals.observation.id}/edit` : `/parcel/${locals.parcel.parcel_id}/observation/add` %>" >
 
       <div class="w3-container w3-card-4 w3-white">
         <h3>Etape 1</h3>
-        
+
         <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_1_date" type="date" value="<%= locals.observation ? locals.observation.step_1_date : '' %>"></p>
 
@@ -37,30 +37,30 @@
 
       <div class="w3-container w3-card-4 w3-white">
         <h3>Etape 2</h3>
-        
+
         <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_2_date" type="date" value="<%= locals.observation ? locals.observation.step_2_date : '' %>"></p>
 
         <p><label>Poids moyen prévisionnel d'une grappe (g)</label>
-        <input class="w3-input w3-border" name="weight" type="number" step="1" value="<%= locals.observation ? locals.observation.weight : '' %>"></p>
+        <input class="w3-input w3-border" name="weight" type="number" step="1" value="<%= locals.observation ? locals.observation.weight : 0 %>"></p>
 
         <p><label>Taux de sucre prévisionnel (degrés Brix)</label>
-        <input class="w3-input w3-border" name="sugar_rate" type="number" step="0.01" value="<%= locals.observation ? locals.observation.sugar_rate : '' %>"></p>
+        <input class="w3-input w3-border" name="sugar_rate" type="number" step="0.01" value="<%= locals.observation ? locals.observation.sugar_rate : 0 %>"></p>
       </div>
 
       <br/>
 
       <div class="w3-container w3-card-4 w3-white">
         <h3>Etape 3</h3>
-        
+
         <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_3_date" type="date" value="<%= locals.observation ? locals.observation.step_3_date : '' %>"></p>
 
         <p><label>Poids moyen réel d'une grappe (g)</label>
-        <input class="w3-input w3-border" name="weight_real" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.weight_real : '' %>"></p>
+        <input class="w3-input w3-border" name="weight_real" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.weight_real : 0 %>"></p>
 
         <p><label>Taux de sucre réel (degrés Brix)</label>
-        <input class="w3-input w3-border" name="sugar_rate_real" type="number" step="0.01" value="<%= locals.observation ? locals.observation.sugar_rate_real : '' %>"></p>
+        <input class="w3-input w3-border" name="sugar_rate_real" type="number" step="0.01" value="<%= locals.observation ? locals.observation.sugar_rate_real : 0 %>"></p>
       </div>
 
       <p class="w3-center"><button class="w3-btn action-bg onhover-bg">Sauvegader <i class="fa fa-check-square"></i></button></p>
