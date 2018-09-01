@@ -30,10 +30,13 @@
       </p>
 
       <p><label>Surface (ha)</label>
-      <input class="w3-input w3-border" name="area" type="number" step="1" placeholder="0" value="<%= locals.parcel ? locals.parcel.area : '' %>"></p>
+      <input class="w3-input w3-border" name="area" type="number" step="0.01" min="0" placeholder="0" value="<%= locals.parcel ? locals.parcel.area : '' %>"></p>
 
-      <p><label>Densité (plants/ha)</label>
-      <input class="w3-input w3-border" name="density" type="int" step="1" placeholder="0" value="<%= locals.parcel ? locals.parcel.density : '' %>"></p>
+      <p><label>Distance inter-rang</label>
+      <input class="w3-input w3-border" name="row_distance" type="number" step="0.01" placeholder="0.0" min="0" value="<%= locals.parcel ? locals.parcel.row_distance : '' %>"></p>
+
+      <p><label>Distance inter-plant</label>
+        <input class="w3-input w3-border" name="plant_distance" type="number" step="0.01" placeholder="0.0" min="0" value="<%= locals.parcel ? locals.parcel.plant_distance : '' %>"></p>
 
       <p><label>Date de plantation</label>
       <input class="w3-input w3-border" name="date_planting" type="date" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>"></p>
@@ -98,7 +101,7 @@
 
         document.getElementById("lng").value = long.toFixed(6);
         document.getElementById("lat").value = lat.toFixed(6);
-
+/*
         const req = new XMLHttpRequest();
 
         req.onreadystatechange = function(event) {
@@ -113,7 +116,7 @@
         };
 
         req.open('GET', 'https://geo.api.gouv.fr/communes?fields=code,nom,surface,centre,contour&lat=' + lat + '&lon=' + long, true);
-        req.send(null);
+        req.send(null);*/
     }
 
     map.on('load', function () {
