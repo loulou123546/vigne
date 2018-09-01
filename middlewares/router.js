@@ -16,7 +16,7 @@ function checkSignIn(request, response, next) {
 
 // Dashboard.
 router.get('/', checkSignIn, (request, response) => {
-  models.getParcels().then((parcels) => {
+  models.getParcels(request.session.user.farm_id).then((parcels) => {
     parcels.map((parcel) => {
       if (parcel.id) {
         parcel.rend = rendement.grappeMetreCarre(

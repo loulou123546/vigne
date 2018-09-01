@@ -30,7 +30,7 @@
       </p>
 
       <p><label>Surface (ha)</label>
-      <input class="w3-input w3-border" name="area" type="number" step="0.01" min="0" placeholder="0" value="<%= locals.parcel ? locals.parcel.area : '' %>"></p>
+      <input class="w3-input w3-border" name="area" type="number" step="0.00001" min="0" placeholder="0" value="<%= locals.parcel ? locals.parcel.area : '' %>"></p>
 
       <p><label>Distance inter-rang</label>
       <input class="w3-input w3-border" name="row_distance" type="number" step="0.01" placeholder="0.0" min="0" value="<%= locals.parcel ? locals.parcel.row_distance : '' %>"></p>
