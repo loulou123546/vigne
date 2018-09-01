@@ -21,16 +21,16 @@
       <div class="w3-container w3-card-4 w3-white">
         <h3>Etape 1</h3>
         
-        <p><label>Date de l'observation</label>
+        <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_1_date" type="date" value="<%= locals.observation ? locals.observation.step_1_date : '' %>"></p>
 
         <p><label>Nombre de pieds comptés</label>
-        <input class="w3-input w3-border" name="plant_number" type="int" step="1" value="<%= locals.observation ? locals.observation.plant_number : 30 %>">
+        <input class="w3-input w3-border" name="plant_number" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.plant_number : 30 %>">
         <span class="label label-warning">La valeur par défaut ci-dessus est recommandée.</span>
         </p>
 
         <p><label>Nombre de grappes total</label>
-        <input class="w3-input w3-border" name="bunch_number" type="int" step="1" value="<%= locals.observation ? locals.observation.bunch_number : '' %>"></p>
+        <input class="w3-input w3-border" name="bunch_number" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.bunch_number : '' %>"></p>
       </div>
 
       <br/>
@@ -38,7 +38,7 @@
       <div class="w3-container w3-card-4 w3-white">
         <h3>Etape 2</h3>
         
-        <p><label>Date de observation</label>
+        <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_2_date" type="date" value="<%= locals.observation ? locals.observation.step_2_date : '' %>"></p>
 
         <p><label>Poids moyen prévisionnel d'une grappe (g)</label>
@@ -53,11 +53,11 @@
       <div class="w3-container w3-card-4 w3-white">
         <h3>Etape 3</h3>
         
-        <p><label>Date de observation</label>
+        <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_3_date" type="date" value="<%= locals.observation ? locals.observation.step_3_date : '' %>"></p>
 
         <p><label>Poids moyen réel d'une grappe (g)</label>
-        <input class="w3-input w3-border" name="weight_real" type="number" step="1" value="<%= locals.observation ? locals.observation.weight_real : '' %>"></p>
+        <input class="w3-input w3-border" name="weight_real" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.weight_real : '' %>"></p>
 
         <p><label>Taux de sucre réel (degrés Brix)</label>
         <input class="w3-input w3-border" name="sugar_rate_real" type="number" step="0.01" value="<%= locals.observation ? locals.observation.sugar_rate_real : '' %>"></p>
