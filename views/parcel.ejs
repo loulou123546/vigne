@@ -22,18 +22,34 @@
 <table class="w3-table w3-bordered w3-margin-16-32 w3-centered">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Data 1</th>
-            <th>Data 2</th>
+            <th>Date 1</th>
+            <th>Nombre de grappes / m2</th>
+            <th>Date 2</th>
+            <th>Poids moyen d'une grappe(kg)</th>
+            <th>Taux sucre prévisionnel</th>
+            <th>Date 3</th>
+            <th>Poids réel moyen d'une grappe(kg)</th>
+            <th>Taux sucre réel</th>
             <th>Rendement (Kg/Ha)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
+        <% for (var i = 0 ; i < locals.observations.length ; i++) { %>
         <tr>
-            <td>24 Août</td>
-            <td>bar</td>
-            <td>foo</td>
-            <td>9 450</td>
+            <td><%= moment(locals.observations[i].step_1_date).format('DD MMM YYYY') %></td>
+            <td><%= locals.observations[i].bunch_number / locals.observations[i].plant_number %></td>
+            <td><%= moment(locals.observations[i].step_2_date).format('DD MMM YYYY') %></td>
+            <td><%= locals.observations[i].weight || 'Non renseigné' %></td>
+            <td><%= locals.observations[i].sugar_rate  || 'Non renseigné' %></td>
+            <td><%= moment(locals.observations[i].step_3_date).format('DD MMM YYYY')  || 'Non renseigné' %></td>
+            <td><%= locals.observations[i].weight_real || 'Non renseigné' %></td>
+            <td><%= locals.observations[i].sugar_rate_real || 'Non renseigné' %></td>
+            <td>....</td>
+            <td>
+            <a href="/parcel/<%= locals.parcel.id %>/observation/<%= locals.observations[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Editer l'observation &nbsp; </span><i class="fa fa-pencil"></i></a>
+            </td>
         </tr>
+        <% } %>
     </tbody>
 </table>

@@ -21,7 +21,7 @@
       <input class="w3-input w3-border" name="name" type="text" placeholder="Nom" value="<%= locals.parcel ? locals.parcel.name : '' %>"></p>
 
       <p>
-        <label>Variété</label>
+        <label>Cépage</label>
         <select type="select" name="type" value="<%= locals.parcel ? locals.parcel.type : 1 %>">
         <% for(var i = 1 ; i < locals.parcel_types.length ; i++) { %>
           <option value="<%= i %>" <%= (locals.parcel && locals.parcel.type === i) ? 'selected' : '' %> > <%= parcel_types[i] %></option>
@@ -32,8 +32,8 @@
       <p><label>Surface (m2)</label>
       <input class="w3-input w3-border" name="area" type="number" step="1" placeholder="0" value="<%= locals.parcel ? locals.parcel.area : '' %>"></p>
 
-      <p><label>Densité</label>
-      <input class="w3-input w3-border" name="density" type="number" step="0.01" placeholder="0.0" value="<%= locals.parcel ? locals.parcel.density : '' %>"></p>
+      <p><label>Densité (plants/ha)</label>
+      <input class="w3-input w3-border" name="density" type="int" step="1" placeholder="0" value="<%= locals.parcel ? locals.parcel.density : '' %>"></p>
 
       <p><label>Date de plantation</label>
       <input class="w3-input w3-border" name="date_planting" type="date" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>"></p>
