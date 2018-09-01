@@ -5,6 +5,14 @@
     <h1 class="w3-large"><b><%= locals.parcel ? 'Editer' : 'Ajouter' %> une parcelle</b></h1>
 </header>
 
+<ul class="breadcrumb w3-margin-32">
+  <li><a href="/">Tableau de bord</a></li>
+  <% if (locals.parcel) { %>
+  <li><a href="/parcel/<%= locals.parcel.id %>"><%= locals.parcel.name %></a></li>
+  <% } %>
+  <li><%= locals.parcel ? 'Edition' : 'Ajout' %> parcelle</li>
+</ul> 
+
 <div class="w3-row">
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
   <div class="w3-col s12 m8 l4">

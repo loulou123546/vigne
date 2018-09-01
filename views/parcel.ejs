@@ -8,6 +8,11 @@
     <h2 class="w3-large">Rendement : <span class="w3-tag hover-bg"><%= locals.parcel.rend %></span> Kg/Ha</h2>
 </header>
 
+<ul class="breadcrumb w3-margin-32">
+  <li><a href="/">Tableau de bord</a></li>
+  <li><%= locals.parcel.name %></li>
+</ul> 
+
 <div class="w3-bar w3-center">
     <a href="/parcel/<%= locals.parcel.id %>/observation/add" class="w3-btn w3-green"><i class="fa fa-plus-square"></i> Ajouter une observation</a>
     <a href="/parcel/<%= locals.parcel.id %>/edit" class="w3-btn w3-yellow"><i class="fa fa-pencil"></i> Modifier les informations</a>
