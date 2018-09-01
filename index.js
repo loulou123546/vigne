@@ -1,10 +1,11 @@
 'use strict'
 
+import bodyParser from 'body-parser'
 import compression from 'compression'
 import Debug from 'debug'
 import express from 'express'
+import session from 'express-session'
 import helmet from 'helmet'
-import bodyParser from 'body-parser'
 import router from './middlewares/router'
 
 const app = express()
@@ -20,6 +21,9 @@ app.set('views', './views')
 // Header protection.
 app.use(helmet())
 
+// Session handler.
+app.use(session({ secret: 'MathildeFabienLouisHervé' }))
+
 // Compress all responses.
 app.use(compression())
 
@@ -31,7 +35,7 @@ app.use(express.static('assets'))
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
-})); 
+}));
 
 // Routing.
 app.use(router)

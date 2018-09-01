@@ -3,15 +3,25 @@ import moment from 'moment'
 import * as db from '../config/db'
 
 const router = express.Router()
+function checkSignIn(request, response, next) {
+  if (request.session.user) {
+    next()
+  }
+  else {
+    response.redirect('/login')
+  }
+}
 
 // Dashboard.
-router.get('/', (request, response) => {
+router.get('/', checkSignIn, (request, response) => {
   const connection = db.createConnection()
   connection.query('SELECT * FROM parcel', (error, results, fields) => {
     if (error) throw error
+
     response.render('layout', {
       view: 'dashboard',
       title: 'Tableau de bord',
+      mail: request.session.user.mail,
       parcels: results
     })
   })
@@ -19,7 +29,7 @@ router.get('/', (request, response) => {
 })
 
 // Get parcel.
-router.get('/parcel/:pid(\\d+)', (request, response) => {
+router.get('/parcel/:pid(\\d+)', checkSignIn, (request, response) => {
   const connection = db.createConnection()
   connection.query('SELECT * FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
     if (error) throw error
@@ -33,7 +43,7 @@ router.get('/parcel/:pid(\\d+)', (request, response) => {
 })
 
 // Parcel form.
-router.get('/parcel/add', (request, response) => {
+router.get('/parcel/add', checkSignIn, (request, response) => {
   response.render('layout', {
     view: 'form-parcel',
     title: 'Ajouter une parcelle',
@@ -42,7 +52,7 @@ router.get('/parcel/add', (request, response) => {
 })
 
 // Add parcel.
-router.post('/parcel/add', (request, response) => {
+router.post('/parcel/add', checkSignIn, (request, response) => {
   let parcelData = request.body
   // Get from session ?
   parcelData['farm_id'] = 1
@@ -58,9 +68,9 @@ router.post('/parcel/add', (request, response) => {
 })
 
 // Parcel form.
-router.get('/parcel/:pid(\\d+)/edit', (request, response) => {
+router.get('/parcel/:pid(\\d+)/edit', checkSignIn, (request, response) => {
   const connection = db.createConnection()
-  connection.query('SELECT * from parcel WHERE id = ?', [request.params.pid], (error, results) => {
+  connection.query('SELECT * FROM parcel WHERE id = ?', [request.params.pid], (error, results) => {
     if (error) throw error
 
     response.render('layout', {
@@ -82,7 +92,7 @@ router.get('/parcel/:pid(\\d+)/edit', (request, response) => {
 })
 
 // Edit parcel.
-router.post('/parcel/:pid(\\d+)/edit', (request, response) => {
+router.post('/parcel/:pid(\\d+)/edit', checkSignIn, (request, response) => {
   let parcelData = request.body
   // Get from session ?
   parcelData['farm_id'] = 1
@@ -97,7 +107,7 @@ router.post('/parcel/:pid(\\d+)/edit', (request, response) => {
 })
 
 // Delete parcel.
-router.get('/parcel/:pid(\\d+)/delete', (request, response) => {
+router.get('/parcel/:pid(\\d+)/delete', checkSignIn, (request, response) => {
   const connection = db.createConnection()
   connection.query('DELETE FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
     if (error) throw error
@@ -107,7 +117,7 @@ router.get('/parcel/:pid(\\d+)/delete', (request, response) => {
 })
 
 // Observation form.
-router.get('/parcel/:pid(\\d+)/observation/add', (request, response) => {
+router.get('/parcel/:pid(\\d+)/observation/add', checkSignIn, (request, response) => {
   response.render('layout', {
     view: 'form-observation',
     title: 'Ajouter une observation',
@@ -115,7 +125,7 @@ router.get('/parcel/:pid(\\d+)/observation/add', (request, response) => {
 })
 
 // Add observation.
-router.post('/parcel/:pid(\\d+)/observation/add', (request, response) => { //duplicate
+router.post('/parcel/:pid(\\d+)/observation/add', checkSignIn, (request, response) => { //duplicate
   response.render('layout', {
     view: 'form-observation',
     title: 'Ajouter une observation',
@@ -123,7 +133,7 @@ router.post('/parcel/:pid(\\d+)/observation/add', (request, response) => { //dup
 })
 
 // Observation form.
-router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => { //never edit
+router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', checkSignIn, (request, response) => { //never edit
   response.render('layout', {
     view: 'form-observation',
     title: 'Éditer une observation',
@@ -131,7 +141,7 @@ router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response)
 })
 
 // Edit observation.
-router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response) => { //never edit
+router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', checkSignIn, (request, response) => { //never edit
   response.render('layout', {
     view: 'form-observation',
     title: 'Éditer une observation',
@@ -139,9 +149,52 @@ router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', (request, response
 })
 
 // Delete observation.
-router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/delete', (request, response) => { //never delete
+router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/delete', checkSignIn, (request, response) => { //never delete
   //TODO : delete observation
   response.redirect('/')
+})
+
+router.get('/login', (request, response) => {
+  response.render('layout', {
+    view: 'login',
+    title: 'Connexion',
+  })
+})
+
+router.post('/login', (request, response) => {
+  if (!request.body.mail || !request.body.password) {
+    response.render('layout', {
+      view: 'login',
+      title: 'Connexion',
+      message: "Veuillez remplir l'identifiant et le mot de passe",
+    })
+  }
+  else {
+    const connection = db.createConnection()
+    connection.query('SELECT * FROM user WHERE mail = ? AND password = ?', [request.body.mail, request.body.password], (error, results) => {
+      if (error) throw error
+
+      if (results[0].mail === request.body.mail && results[0].password === request.body.password) {
+        request.session.user = results[0]
+        response.redirect('/')
+      }
+      else {
+        response.render('layout', {
+          view: 'login',
+          title: 'Connexion',
+          message: "L'identifiant ou le mot de passe n'est pas correct",
+        })
+      }
+    })
+    connection.end()
+  }
+})
+
+router.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    console.log('user logged out.')
+  })
+  res.redirect('/login')
 })
 
 export default router
