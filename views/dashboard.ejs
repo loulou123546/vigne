@@ -21,7 +21,7 @@
     <tr>
       <th>Parcelle</th>
       <th>Rendement (Kg/Ha)</th>
-      <th>Dernière modification</th>
+      <th>Dernière observation</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -30,7 +30,7 @@
     <tr>
       <td class="tooltip"><a href="parcel/<%= locals.parcels[i].id %>"><%= locals.parcels[i].name %></a><span class="tooltiptext"> &nbsp; Voir les infos &nbsp; </span></td>
       <td><%= locals.parcels[i].rend %></td>
-      <td><%= locals.parcels[i].lastrenew %></td>
+      <td><%= locals.parcels[i].last_date %></td>
       <td>
         <a href="/parcel/<%= locals.parcels[i].id %>/observation/add %>" class="w3-button w3-green tooltip"><span class="tooltiptext"> &nbsp; Noter une observation &nbsp; </span><i class="fa fa-plus-square"></i></a>
         <a href="/parcel/<%= locals.parcels[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Modifier la parcelle &nbsp; </span><i class="fa fa-pencil"></i></a>

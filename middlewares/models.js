@@ -4,7 +4,13 @@ import * as db from '../config/db';
 export const getParcels = (farm_id) => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection();
-    connection.query('SELECT * FROM parcel', (error, parcels) => {
+    connection.query(`
+      SELECT parcel.*, last_obs.* FROM parcel
+      JOIN (
+        SELECT *, MAX(step_1_date) FROM observation
+        GROUP by parcel_id
+      ) last_obs ON (parcel.id = last_obs.parcel_id);
+    `, (error, parcels) => {
       if (error) throw error
       connection.end();
       resolve(parcels);
@@ -24,6 +30,18 @@ export const getParcel = (parcel_id) => {
     return;
   });
 };
+
+export const getLastObservation = (parcel_id) => {
+  return new Promise((resolve, reject) => {
+    const connection = db.createConnection();
+    connection.query('SELECT * FROM observation WHERE id = ? ORDER BY step_1_date DESC', [parcel_id], (error, observation) => {
+      if (error) throw error
+      connection.end();
+      resolve(observation);
+    });
+    return;
+  })
+}
 
 export const postParcel = (data) => {
   return new Promise((resolve, reject) => {
