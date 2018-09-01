@@ -129,16 +129,6 @@
         map.on('click', function (e) {
             createP(e.lngLat.lat, e.lngLat.lng)
         });
-
-        // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
-        map.on('mouseenter', 'symbols', function () {
-            map.getCanvas().style.cursor = 'pointer';
-        });
-
-        // Change it back to a pointer when it leaves.
-        map.on('mouseleave', 'symbols', function () {
-            map.getCanvas().style.cursor = '';
-        });
         
         setTimeout(() => {
             map.addLayer({

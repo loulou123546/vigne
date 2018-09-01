@@ -23,9 +23,7 @@
     <thead>
         <tr>
             <th>Année</th>
-            <th>Nombre de grappes / m2</th>
-            <th>Poids moyen d'une grappe (kg)</th>
-            <th>Taux de sucre</th>
+            <th>Taux de sucre <%= locals.observations[locals.observations.length - 1] ? (locals.observations[locals.observations.length - 1].sugar_rate_real ? 'réel' : 'prévu') : 'prévu' %></th>
             <th>Rendement (Kg/Ha)</th>
             <th>Actions</th>
         </tr>
@@ -34,8 +32,6 @@
         <% for (var i = 0 ; i < locals.observations.length ; i++) { %>
         <tr>
             <td><%= moment(locals.observations[i].step_1_date).format('YYYY') %></td>
-            <td><%= locals.observations[i].bunch_number / locals.observations[i].plant_number %></td>
-            <td><%= locals.observations[i].weight_real || locals.observations[i].weight || 'Non renseigné' %></td>
             <td><%= locals.observations[i].sugar_rate_real || locals.observations[i].sugar_rate || 'Non renseigné' %></td>
             <td>....</td>
             <td>
