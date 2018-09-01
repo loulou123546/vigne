@@ -1,35 +1,35 @@
 import express from 'express'
 import moment from 'moment'
-import * as db from './db';
+import * as db from './db'
 
 const router = express.Router()
 
 // Dashboard.
 router.get('/', (request, response) => {
-  const connection = db.createConnection();
+  const connection = db.createConnection()
   connection.query('SELECT * FROM parcel', (error, results, fields) => {
     if (error) throw error
     response.render('layout', {
       view: 'dashboard',
       title: 'Tableau de bord',
       parcels: results
-    });
-  });
-  connection.end();
+    })
+  })
+  connection.end()
 })
 
 // Get parcel.
 router.get('/parcel/:pid(\\d+)', (request, response) => {
-  const connection = db.createConnection();
+  const connection = db.createConnection()
   connection.query('SELECT * FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
     if (error) throw error
     response.render('layout', {
       view: 'parcel',
       title: 'Parcelle',
       parcel: results[0]
-    });
-  });
-  connection.end();
+    })
+  })
+  connection.end()
 })
 
 // Parcel form.
@@ -43,62 +43,61 @@ router.get('/parcel/add', (request, response) => {
 
 // Add parcel.
 router.post('/parcel/add', (request, response) => {
-  let parcelData = request.body;
+  let parcelData = request.body
   // Get from session ?
-  parcelData['farm_id'] = 1;
+  parcelData['farm_id'] = 1
   // Get connection
-  const connection = db.createConnection();
+  const connection = db.createConnection()
   // Insert query
   connection.query('INSERT INTO parcel SET ?', parcelData, (error, results, fields) => {
     if (error) throw error
     response.redirect('/')
-  });
-  connection.end();
+  })
+  connection.end()
 })
 
 // Parcel form.
 router.get('/parcel/:pid(\\d+)/edit', (request, response) => {
-  const connection = db.createConnection();
+  const connection = db.createConnection()
   connection.query('SELECT * from parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
-    if (error) throw error;
+    if (error) throw error
     response.render('layout', {
       view: 'form-parcel',
       title: 'Éditer une parcelle',
       parcel_types: db.PARCEL_TYPES,
       parcel: {
-        ...results[0],
-        // Formatting date for html field 
-        date_planting: moment(results[0].date_planting).format('YYYY-MM-DD');
+        // ...results[0],
+        // Formatting date for html field
+        date_planting: moment(results[0].date_planting).format('YYYY-MM-DD')
       }
-    }
     })
-  });
-  connection.end();
+  })
+  connection.end()
 })
 
 // Edit parcel.
 router.post('/parcel/:pid(\\d+)/edit', (request, response) => {
-  let parcelData = request.body;
+  let parcelData = request.body
   // Get from session ?
-  parcelData['farm_id'] = 1;
+  parcelData['farm_id'] = 1
   // Get connection
-  const connection = db.createConnection();
+  const connection = db.createConnection()
   // Update query
   connection.query('UPDATE parcel SET ? WHERE id = ?', [parcelData, request.params.pid], (error, results, fields) => {
     if (error) throw error
     response.redirect('/')
-  });
-  connection.end();
+  })
+  connection.end()
 })
 
 // Delete parcel.
 router.get('/parcel/:pid(\\d+)/delete', (request, response) => {
-  const connection = db.createConnection();
+  const connection = db.createConnection()
   connection.query('DELETE FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
     if (error) throw error
     response.redirect('/')
-  });
-  connection.end();
+  })
+  connection.end()
 })
 
 // Observation form.
