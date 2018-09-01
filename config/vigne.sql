@@ -32,7 +32,8 @@ CREATE TABLE vigne.`parcel` (
   `density` decimal(10, 2) NOT NULL,
   `type` tinyint(4) NOT NULL,
   `date_planting` datetime,
-  `city` varchar(100),
+  `lng` float NOT NULL,
+  `lat` float NOT NULL
   PRIMARY KEY (`id`),
   FOREIGN KEY (`farm_id`)
     REFERENCES vigne.farm(`id`)

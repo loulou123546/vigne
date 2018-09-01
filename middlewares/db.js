@@ -8,8 +8,8 @@ export const PARCEL_TYPES = [
 ]
 
 const HOST = 'localhost'
-const USER = '...'
-const PASSWORD = '...'
+const USER = 'root'
+const PASSWORD = 'root'
 const DATABASE = 'vigne'
 
 export const createConnection = () => {

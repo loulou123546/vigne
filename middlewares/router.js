@@ -49,8 +49,9 @@ router.post('/parcel/add', (request, response) => {
   // Get connection
   const connection = db.createConnection()
   // Insert query
-  connection.query('INSERT INTO parcel SET ?', parcelData, (error, results, fields) => {
+  connection.query('INSERT INTO parcel SET ?', parcelData, (error) => {
     if (error) throw error
+
     response.redirect('/')
   })
   connection.end()
@@ -59,17 +60,22 @@ router.post('/parcel/add', (request, response) => {
 // Parcel form.
 router.get('/parcel/:pid(\\d+)/edit', (request, response) => {
   const connection = db.createConnection()
-  connection.query('SELECT * from parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
+  connection.query('SELECT * from parcel WHERE id = ?', [request.params.pid], (error, results) => {
     if (error) throw error
+
     response.render('layout', {
       view: 'form-parcel',
       title: 'Éditer une parcelle',
       parcel_types: db.PARCEL_TYPES,
       parcel: {
-        // ...results[0],
+        id: results[0].id,
+        name: results[0].name,
+        type: results[0].type,
+        area: results[0].area,
+        density: results[0].density,
         // Formatting date for html field
-        date_planting: moment(results[0].date_planting).format('YYYY-MM-DD')
-      }
+        date_planting: moment(results[0].date_planting).format('YYYY-MM-DD'),
+      },
     })
   })
   connection.end()
