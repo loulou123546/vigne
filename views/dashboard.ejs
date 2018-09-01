@@ -9,7 +9,7 @@
 
 <a href="/parcel/add" class="w3-btn action-bg onhover-bg add-parcel">+ Ajouter une parcelle</a>
 
-<table class="w3-table w3-bordered w3-centered">
+<table class="w3-table w3-hide-small w3-bordered w3-centered">
   <thead>
     <tr>
       <th>Parcelle</th>
@@ -33,3 +33,16 @@
     <% } %>
   </tbody>
 </table>
+
+<% for(var i = 0 ; i < locals.parcels.length ; i++) { %>
+<div class="w3-card-4 w3-white w3-center w3-margin w3-padding w3-hide-medium w3-hide-large">
+  <h3>Nom parcelle</h3>
+  <ul class="w3-left-align">
+    <li>Rendement : xxx Kg/Ha</li>
+    <li>Date : 24 Août</li>
+  </ul>
+  <a href="/parcel/<%= locals.parcels[i].id %>/observation/add %>" class="w3-button w3-green tooltip"><span class="tooltiptext"> &nbsp; Noter une observation &nbsp; </span><i class="fa fa-plus-square"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Modifier la parcelle &nbsp; </span><i class="fa fa-pencil"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].id %>/delete" class="w3-button w3-red tooltip"><span class="tooltiptext"> &nbsp; Supprimer la parcelle &nbsp; </span><i class="fa fa-trash"></i></a>
+</div>
+<% } %>
