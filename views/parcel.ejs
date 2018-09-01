@@ -19,17 +19,13 @@
     <a href="/parcel/<%= locals.parcel.id %>/delete" class="w3-btn w3-red"><i class="fa fa-trash"></i> Supprimer la parcelle</a>
 </div>
 <br><br>
-<table class="w3-table w3-bordered w3-margin-16-32 w3-centered">
+<table class="w3-table w3-bordered w3-centered">
     <thead>
         <tr>
-            <th>Date 1</th>
+            <th>Année</th>
             <th>Nombre de grappes / m2</th>
-            <th>Date 2</th>
-            <th>Poids moyen d'une grappe(kg)</th>
-            <th>Taux sucre prévisionnel</th>
-            <th>Date 3</th>
-            <th>Poids réel moyen d'une grappe(kg)</th>
-            <th>Taux sucre réel</th>
+            <th>Poids moyen d'une grappe (kg)</th>
+            <th>Taux de sucre</th>
             <th>Rendement (Kg/Ha)</th>
             <th>Actions</th>
         </tr>
@@ -37,14 +33,10 @@
     <tbody>
         <% for (var i = 0 ; i < locals.observations.length ; i++) { %>
         <tr>
-            <td><%= moment(locals.observations[i].step_1_date).format('DD MMM YYYY') %></td>
+            <td><%= moment(locals.observations[i].step_1_date).format('YYYY') %></td>
             <td><%= locals.observations[i].bunch_number / locals.observations[i].plant_number %></td>
-            <td><%= moment(locals.observations[i].step_2_date).format('DD MMM YYYY') %></td>
-            <td><%= locals.observations[i].weight || 'Non renseigné' %></td>
-            <td><%= locals.observations[i].sugar_rate  || 'Non renseigné' %></td>
-            <td><%= moment(locals.observations[i].step_3_date).format('DD MMM YYYY')  || 'Non renseigné' %></td>
-            <td><%= locals.observations[i].weight_real || 'Non renseigné' %></td>
-            <td><%= locals.observations[i].sugar_rate_real || 'Non renseigné' %></td>
+            <td><%= locals.observations[i].weight_real || locals.observations[i].weight || 'Non renseigné' %></td>
+            <td><%= locals.observations[i].sugar_rate_real || locals.observations[i].sugar_rate || 'Non renseigné' %></td>
             <td>....</td>
             <td>
             <a href="/parcel/<%= locals.parcel.id %>/observation/<%= locals.observations[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Editer l'observation &nbsp; </span><i class="fa fa-pencil"></i></a>
