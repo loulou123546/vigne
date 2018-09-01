@@ -1,3 +1,9 @@
 node_modules
 public
 /config/database-local.json
+
+html_files/db_parcel\.html
+
+html_files/form_obs\.html
+
+html_files/login\.html

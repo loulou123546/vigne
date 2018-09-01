@@ -77,7 +77,7 @@ router.get('/parcel/:pid(\\d+)/edit', checkSignIn, (request, response) => {
       view: 'form-parcel',
       title: 'Éditer une parcelle',
       parcel_types: db.PARCEL_TYPES,
-      parcel: parcel,
+      parcel: parcel
     })
   })
 })
