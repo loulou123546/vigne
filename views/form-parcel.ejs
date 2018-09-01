@@ -22,7 +22,7 @@
 
       <p>
         <label>Variété</label>
-        <select type="select" name="type" value="<%= locals.parcel ? locals.parcel.type : 1 %>">
+        <select class="w3-select w3-border" type="select" name="type" value="<%= locals.parcel ? locals.parcel.type : 1 %>">
         <% for(var i = 1 ; i < locals.parcel_types.length ; i++) { %>
           <option value="<%= i %>" <%= (locals.parcel && locals.parcel.type === i) ? 'selected' : '' %> > <%= parcel_types[i] %></option>
         <% } %>
