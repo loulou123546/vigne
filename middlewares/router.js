@@ -54,6 +54,13 @@ router.get('/', checkSignIn, (request, response) => {
 router.get('/parcel/:pid(\\d+)', checkSignIn, (request, response) => {
   models.getParcel(request.params.pid).then(parcel =>
     models.getParcelObservations(request.params.pid).then(observations => {
+      parcel.rend = rendement.grappeMetreCarre(
+        parcel.bunch_number,
+        parcel.plant_number,
+        parcel.row_distance,
+        parcel.plant_distance,
+      ).rendement1(parcel.area).toFixed(2)
+
       response.render('layout', {
         view: 'parcel',
         title: 'Parcelle',

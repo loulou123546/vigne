@@ -21,7 +21,12 @@ export const getParcels = (farm_id) => {
 export const getParcel = (parcel_id) => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection();
-    connection.query('SELECT * FROM parcel WHERE id = ?', [parcel_id], (error, parcels) => {
+    connection.query(`SELECT *, parcel.id as parcel_id FROM parcel
+      LEFT JOIN observation
+      ON (parcel.id = observation.parcel_id)
+      WHERE parcel.id = ?
+      GROUP by parcel.id
+      ORDER BY observation.step_1_date DESC;`, [parcel_id], (error, parcels) => {
       if (error) throw error
       connection.end();
       resolve(parcels[0]);
