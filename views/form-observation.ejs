@@ -1,8 +1,8 @@
 <header class="w3-container w3-hide-small hero-bg w3-center w3-margin-32 w3-padding-32">
-  <h1 class="w3-xxlarge"><b><%= locals.observation ? 'Editer' : 'Ajouter' %> une observation</b></h1>
+  <h1 class="w3-xxlarge"><b><%= locals.observation ? 'Éditer' : 'Ajouter' %> une observation</b></h1>
 </header>
 <header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center w3-padding-32">
-    <h1 class="w3-large"><b><%= locals.observation ? 'Editer' : 'Ajouter' %> une observation</b></h1>
+    <h1 class="w3-large"><b><%= locals.observation ? 'Éditer' : 'Ajouter' %> une observation</b></h1>
 </header>
 
 <ul class="breadcrumb w3-margin-32">
@@ -18,8 +18,8 @@
 
     <form method="post" action="<%= locals.observation ? `/parcel/${locals.parcel.parcel_id}/observation/${locals.observation.id}/edit` : `/parcel/${locals.parcel.parcel_id}/observation/add` %>" >
 
-      <div class="w3-container w3-card-4 w3-white">
-        <h3>Etape 1</h3>
+      <div class="w3-container w3-card-4 w3-margin w3-white">
+        <h3>Étape 1</h3>
 
         <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_1_date" type="date" value="<%= locals.observation ? locals.observation.step_1_date : '' %>"></p>
@@ -35,8 +35,8 @@
 
       <br/>
 
-      <div class="w3-container w3-card-4 w3-white">
-        <h3>Etape 2</h3>
+      <div class="w3-container w3-card-4 w3-margin w3-white">
+        <h3>Étape 2</h3>
 
         <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_2_date" type="date" value="<%= locals.observation ? locals.observation.step_2_date : '' %>"></p>
@@ -50,8 +50,8 @@
 
       <br/>
 
-      <div class="w3-container w3-card-4 w3-white">
-        <h3>Etape 3</h3>
+      <div class="w3-container w3-card-4 w3-margin w3-white">
+        <h3>Étape 3</h3>
 
         <p><label>Date d'observation</label>
         <input class="w3-input w3-border" name="step_3_date" type="date" value="<%= locals.observation ? locals.observation.step_3_date : '' %>"></p>
