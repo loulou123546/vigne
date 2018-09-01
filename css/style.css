@@ -1,15 +1,15 @@
 /* https://colorhunt.co/palette/117699 */
 .main-bg{
-    /*background-color: #fff1bc!important;*/
-    background-color: #fff3cc!important;
+    background-color: #dbf1f2!important;
     color: black!important;
 }
 .hero-bg{
-    background-color: #7dc383!important;
+    background-color: #882042!important;
     color: white!important;
+    margin-bottom: 10px;
 }
 .action-bg{
-    background-color: #6a9c78!important;
+    background-color: #4CAF50!important;
     color: white!important;
 }
 .hover-bg{
@@ -22,7 +22,7 @@
 }
 
 .hero-text{
-    color: #7dc383!important;
+    color: #882042!important;
 }
 .action-text{
     color: #6a9c78!important;
@@ -64,6 +64,7 @@ table {
 .tooltip {
     position: relative;
     display: inline-block;
+    border-radius: 14px;
 }
 
 .tooltip .tooltiptext {
@@ -104,6 +105,7 @@ td .w3-button {
 }
 
 .add-parcel {
+  border-radius: 14px;
   margin: 30px;
 }
 
@@ -112,7 +114,9 @@ td .w3-button {
 ul.breadcrumb {
     padding: 10px 16px;
     list-style: none;
-    background-color: #c6ecc6;
+    background-color: #fff;
+    color: #000;
+    text-align: left;
 }
 
 /* Display list items side by side */
@@ -138,4 +142,12 @@ ul.breadcrumb li a {
 ul.breadcrumb li a:hover {
     color: #01447e;
     text-decoration: underline;
-} 
+}
+.round,
+.w3-white {
+  border-radius: 14px;
+}
+
+.size-fixed a {
+  margin-bottom: 10px;
+}
