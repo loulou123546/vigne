@@ -41,7 +41,7 @@ body {
 }
 table {
     box-sizing: border-box!important;
-    width: calc(100vw - 64px)!important;
+    width: 100%!important;
 }
 .w3-table tr {
     border-bottom-color: #ccc!important;

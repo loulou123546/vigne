@@ -39,8 +39,8 @@
       <input class="w3-input w3-border" name="date_planting" type="date" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>"></p>
 
       <p><label style="display:block;">Coordonnées</label>
-        <input class="w3-input w3-border w3-left" id="lng" name="lng" type="number" step="0.000001" placeholder="longitude" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;">
-        <input class="w3-input w3-border w3-right" id="lat" name="lat" type="number" step="0.000001" placeholder="lagitude"  value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;"></p>
+        <input class="w3-input w3-border w3-left" id="lng" name="lng" type="number" step="0.000001" placeholder="longitude" value="<%= locals.parcel ? locals.parcel.lng : '' %>" style="width: 50%;display: inline;">
+        <input class="w3-input w3-border w3-right" id="lat" name="lat" type="number" step="0.000001" placeholder="lagitude"  value="<%= locals.parcel ? locals.parcel.lat : '' %>" style="width: 50%;display: inline;"></p>
 
       <div id='map' style='width: 100%; height: 400px;'></div>
 
@@ -61,7 +61,7 @@
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v9',
         center: [4.360305, 48.960159],
-        zoom: 6
+        zoom: 5
     });
 
     function createP (lat, long){
@@ -91,7 +91,8 @@
             },
             "layout": {
                 "icon-image": "myfarm",
-                "icon-size": 0.05
+                "icon-size": 0.05,
+                "icon-allow-overlap": true
             }
         });
 
@@ -134,8 +135,8 @@
                             "geometry": {
                                 "type": "Point",
                                 "coordinates": [
-                                    0.0001,
-                                    0.0002
+                                    <%= locals.parcel ? locals.parcel.lng : 0.0001 %>,
+                                    <%= locals.parcel ? locals.parcel.lat : 0.0002 %>
                                 ]
                             }
                         }
@@ -143,7 +144,9 @@
                 }
             },
             "layout": {
-                "icon-image": "unvalid-icon"
+                "icon-image": "<%= locals.parcel ? (locals.parcel.lng ? 'myfarm' : 'invalid-icon' ) : 'invalid-icon' %>",
+                "icon-size": 0.05,
+                "icon-allow-overlap": true
             }
         });
       map.resize();
@@ -171,6 +174,8 @@
     }, 100);
     setTimeout(() => {
       map.resize();
+      map.setZoom(6)
     }, 300);
 });
 </script>
+<br><br>
