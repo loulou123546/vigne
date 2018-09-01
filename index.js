@@ -2,11 +2,15 @@
 
 import bodyParser from 'body-parser'
 import compression from 'compression'
+import cookieParser from 'cookie-parser'
 import Debug from 'debug'
 import express from 'express'
 import session from 'express-session'
 import helmet from 'helmet'
+import * as db from './config/db'
 import router from './middlewares/router'
+
+var MySQLStore = require('express-mysql-session')(session)
 
 const app = express()
 const debug = Debug('vigne')
@@ -22,7 +26,17 @@ app.set('views', './views')
 app.use(helmet())
 
 // Session handler.
-app.use(session({ secret: 'MathildeFabienLouisHervé' }))
+const connection = db.createConnection()
+const sessionStore = new MySQLStore({}, connection)
+app.use(cookieParser())
+app.use(session({
+  key: 'vigneHackTaFerme',
+  secret: 'MathildeFabienLouisHervé',
+  store: sessionStore,
+  resave: false,
+  saveUninitialized: false,
+  cookie: { expires: new Date(Date.now() + 3600000) },
+}))
 
 // Compress all responses.
 app.use(compression())

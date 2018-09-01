@@ -22,7 +22,8 @@ router.get('/', checkSignIn, (request, response) => {
       view: 'dashboard',
       title: 'Tableau de bord',
       mail: request.session.user.mail,
-      parcels: results
+      maxAge: request.session.cookie.maxAge,
+      parcels: results,
     })
   })
   connection.end()
@@ -190,11 +191,11 @@ router.post('/login', (request, response) => {
   }
 })
 
-router.get('/logout', (req, res) => {
-  req.session.destroy(() => {
-    console.log('user logged out.')
+router.get('/logout', (request, response) => {
+  request.session.destroy(() => {
+    console.log('User logged out.')
   })
-  res.redirect('/login')
+  response.redirect('/')
 })
 
 export default router
