@@ -1,15 +1,14 @@
 import * as db from '../config/db';
 
-
 export const getParcels = (farm_id) => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection();
     connection.query(`
-      SELECT parcel.*, last_obs.* FROM parcel
-      JOIN (
-        SELECT *, MAX(step_1_date) FROM observation
-        GROUP by parcel_id
-      ) last_obs ON (parcel.id = last_obs.parcel_id);
+      SELECT *, parcel.id as parcel_id FROM parcel
+      LEFT JOIN observation
+      ON (parcel.id = observation.parcel_id)
+      GROUP by parcel.id
+      ORDER BY observation.step_1_date DESC;
     `, (error, parcels) => {
       if (error) throw error
       connection.end();
@@ -49,7 +48,7 @@ export const postParcel = (data) => {
     // Insert query
     connection.query('INSERT INTO parcel SET ?', data, (error) => {
       if (error) throw error
-      revolve();
+      resolve();
     })
     connection.end()
   });

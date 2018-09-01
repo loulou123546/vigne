@@ -18,8 +18,11 @@ router.get('/', checkSignIn, (request, response) => {
   models.getParcels().then(parcels => {
     for (let i = 0 ; i < parcels.length ; i++) {
       const parcel = parcels[i];
-      const parcelMoments = [parcel.step_1_date, parcel.step_2_date, parcel.step_3_date].map(d => moment(d));
-      parcel.last_date = moment.max(parcelMoments.filter(m => m.isValid())).format('DD MMM YYYY');
+      let parcelMoments = [parcel.step_1_date, parcel.step_2_date, parcel.step_3_date].map(d => moment(d)).filter(m => m.isValid());
+      if (parcelMoments.length > 0) {
+        parcel.last_date = moment.max(parcelMoments).format('DD MMM YYYY');  
+      }
+      console.log(parcel)
     }
     response.render('layout', {
       view: 'dashboard',
