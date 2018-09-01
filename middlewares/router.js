@@ -86,6 +86,8 @@ router.get('/parcel/:pid(\\d+)/edit', checkSignIn, (request, response) => {
         density: results[0].density,
         // Formatting date for html field
         date_planting: moment(results[0].date_planting).format('YYYY-MM-DD'),
+        lng: results[0].lng,
+        lat: results[0].lat
       },
     })
   })
