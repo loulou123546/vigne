@@ -77,6 +77,7 @@ CREATE TABLE vigne.`result` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
+/*
 INSERT INTO vigne.farm (`id`, `name`) VALUES
 (1, 'La Ferme des Pins');
 
@@ -89,7 +90,7 @@ INSERT INTO vigne.parcel (`id`, `farm_id`, `name`, `area`, `type`, `date_plantin
 (1, 1, 'Parcelle 1', 500, 1, '2014-05-28 00:00:00', 1, 1.15, '49.567251', '3.557852'),
 (2, 1, 'Parcelle 2', 500, 1, '2014-07-24 00:00:00', 1, 1.15, '49.578515', '3.694542'),
 (3, 1, 'Parcelle 3', 500, 1, '2013-09-14 00:00:00', 1, 1.15, '49.236585', '3.526866');
-
+*/
 /*
 INSERT INTO vigne.estimation (`id`, `parcel_id`, `date`) VALUES
 (1, 1, '2018-05-28 00:00:00');*/

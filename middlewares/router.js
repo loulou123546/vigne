@@ -22,7 +22,6 @@ router.get('/', checkSignIn, (request, response) => {
       if (parcelMoments.length > 0) {
         parcel.last_date = moment.max(parcelMoments).format('DD MMM YYYY');  
       }
-      console.log(parcel)
     }
     response.render('layout', {
       view: 'dashboard',

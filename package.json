@@ -8,7 +8,8 @@
     "build_css": "cleancss -o public/style.css css/* --source-map",
     "build": "rm -rf public && mkdir public && npm run build_js && npm run build_css",
     "dev": "npm run build && DEBUG=vigne nodemon index.js",
-    "start": "npm run build && node -r babel-register index.js"
+    "start": "npm run build && node -r babel-register index.js",
+    "populate": "node -r babel-register config/populate_db.js"
   },
   "keywords": [],
   "author": "NerOcrO",
@@ -19,8 +20,13 @@
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-minify": "^0.4.3",
+    "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.3",
     "clean-css-cli": "^4.2.0",
@@ -31,11 +37,18 @@
     "express": "^4.16.3",
     "express-mysql-session": "^2.0.1",
     "express-session": "^1.15.6",
+    "fast-csv": "^2.4.1",
     "helmet": "^3.13.0",
     "moment": "^2.22.2",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "papaparse": "^4.6.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
