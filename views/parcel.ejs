@@ -14,9 +14,9 @@
 </ul>
 
 <div class="w3-bar w3-center">
-    <a href="/parcel/<%= locals.parcel.id %>/observation/add" class="w3-btn w3-green"><i class="fa fa-plus-square"></i> Ajouter une observation</a>
-    <a href="/parcel/<%= locals.parcel.id %>/edit" class="w3-btn w3-yellow"><i class="fa fa-pencil"></i> Modifier les informations</a>
-    <a href="/parcel/<%= locals.parcel.id %>/delete" class="w3-btn w3-red"><i class="fa fa-trash"></i> Supprimer la parcelle</a>
+    <a href="/parcel/<%= locals.parcel.parcel_id %>/observation/add" class="w3-btn w3-green"><i class="fa fa-plus-square"></i> Ajouter une observation</a>
+    <a href="/parcel/<%= locals.parcel.parcel_id %>/edit" class="w3-btn w3-yellow"><i class="fa fa-pencil"></i> Modifier les informations</a>
+    <a href="/parcel/<%= locals.parcel.parcel_id %>/delete" class="w3-btn w3-red"><i class="fa fa-trash"></i> Supprimer la parcelle</a>
 </div>
 <br><br>
 <table class="w3-table w3-bordered w3-centered">
@@ -35,7 +35,7 @@
             <td><%= locals.observations[i].sugar_rate_real || locals.observations[i].sugar_rate || 'Non renseigné' %></td>
             <td><%= locals.parcel.rend %></td>
             <td>
-            <a href="/parcel/<%= locals.parcel.id %>/observation/<%= locals.observations[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Editer l'observation &nbsp; </span><i class="fa fa-pencil"></i></a>
+            <a href="/parcel/<%= locals.parcel.parcel_id %>/observation/<%= locals.observations[i].id %>/edit" class="w3-button w3-yellow tooltip"><span class="tooltiptext"> &nbsp; Editer l'observation &nbsp; </span><i class="fa fa-pencil"></i></a>
             </td>
         </tr>
         <% } %>

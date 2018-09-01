@@ -59,7 +59,11 @@ router.get('/parcel/:pid(\\d+)', checkSignIn, (request, response) => {
         parcel.plant_number,
         parcel.row_distance,
         parcel.plant_distance,
-      ).rendement1(parcel.area).toFixed(2)
+      ).rendement1(parcel.area) || 0
+
+      if (parcel.rend) {
+        parcel.rend = parcel.rend.toFixed(2)
+      }
 
       response.render('layout', {
         view: 'parcel',

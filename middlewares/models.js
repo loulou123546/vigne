@@ -74,7 +74,7 @@ export const putParcel = (data, parcel_id) => {
 export const deleteParcel = (parcel_id) => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection()
-    connection.query('DELETE FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
+    connection.query('DELETE FROM parcel WHERE id = ?', [parcel_id], (error, results, fields) => {
       if (error) throw error
       resolve();
     })
