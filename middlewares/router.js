@@ -2,6 +2,7 @@ import express from 'express'
 import moment from 'moment'
 import * as db from '../config/db'
 import * as models from './models'
+import * as rendement from '../lib/rendement'
 
 const router = express.Router()
 function checkSignIn(request, response, next) {
@@ -15,21 +16,36 @@ function checkSignIn(request, response, next) {
 
 // Dashboard.
 router.get('/', checkSignIn, (request, response) => {
-  models.getParcels().then(parcels => {
-    for (let i = 0 ; i < parcels.length ; i++) {
-      const parcel = parcels[i];
-      let parcelMoments = [parcel.step_1_date, parcel.step_2_date, parcel.step_3_date].map(d => moment(d)).filter(m => m.isValid());
-      if (parcelMoments.length > 0) {
-        parcel.last_date = moment.max(parcelMoments).format('DD MMM YYYY');  
+  models.getParcels().then((parcels) => {
+    parcels.map((parcel) => {
+      if (parcel.id) {
+        parcel.rend = rendement.grappeMetreCarre(
+          parcel.bunch_number,
+          parcel.plant_number,
+          parcel.row_distance,
+          parcel.plant_distance,
+        ).rendement1(parcel.area).toFixed(2)
       }
-      console.log(parcel)
+
+      return parcel
+    })
+
+    const totalrend = parcels.reduce((accumulator, parcel) => (parcel.id ? Number(parcel.rend) + accumulator : accumulator), 0)
+
+    for (let i = 0; i < parcels.length; i++) {
+      const parcel = parcels[i]
+      const parcelMoments = [parcel.step_1_date, parcel.step_2_date, parcel.step_3_date].map(d => moment(d)).filter(m => m.isValid())
+      if (parcelMoments.length > 0) {
+        parcel.last_date = moment.max(parcelMoments).format('DD MMM YYYY')
+      }
     }
+
     response.render('layout', {
       view: 'dashboard',
       title: 'Tableau de bord',
       mail: request.session.user.mail,
-      maxAge: request.session.cookie.maxAge,
-      parcels: parcels,
+      totalrend: totalrend,
+      parcels,
     })
   })
 })
@@ -105,7 +121,7 @@ router.get('/parcel/:pid(\\d+)/observation/add', checkSignIn, (request, response
     response.render('layout', {
       view: 'form-observation',
       title: 'Créer une observation',
-      date_now: moment().format('YYYY-MM-DD'), 
+      date_now: moment().format('YYYY-MM-DD'),
       parcel: parcel
     })
   })

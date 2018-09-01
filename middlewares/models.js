@@ -81,7 +81,7 @@ export const getParcelObservations = (parcel_id) => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection();
     connection.query('SELECT * from observation WHERE parcel_id = ?', [parcel_id], (error, observations) => {
-      if (error) throw error 
+      if (error) throw error
       connection.end();
       resolve(observations);
     })
@@ -93,7 +93,7 @@ export const getObservation = (obs_id) => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection();
     connection.query('SELECT * from observation WHERE id = ?', [obs_id], (error, observations) => {
-      if (error) throw error 
+      if (error) throw error
       connection.end();
       resolve(observations[0]);
     })
