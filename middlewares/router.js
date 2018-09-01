@@ -123,13 +123,12 @@ router.get('/parcel/:pid(\\d+)/delete', checkSignIn, (request, response) => {
 
 // Observation form.
 router.get('/parcel/:pid(\\d+)/observation/add', checkSignIn, (request, response) => {
-  models.getParcel(request.params.pid).then(parcel => {
-    console.log(parcel)
+  models.getParcel(request.params.pid).then((parcel) => {
     response.render('layout', {
       view: 'form-observation',
       title: 'Créer une observation',
       date_now: moment().format('YYYY-MM-DD'),
-      parcel: parcel
+      parcel,
     })
   })
 })
@@ -220,6 +219,13 @@ router.get('/logout', (request, response) => {
     console.log('User logged out.')
   })
   response.redirect('/')
+})
+
+router.get('/social', (request, response) => {
+  response.render('layout', {
+    view: 'social',
+    title: 'Social',
+  })
 })
 
 export default router
