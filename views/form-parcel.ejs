@@ -11,7 +11,7 @@
     <li><a href="/parcel/<%= locals.parcel.id %>"><%= locals.parcel.name %></a></li>
     <% } %>
     <li><%= locals.parcel ? 'Edition' : 'Ajout' %> parcelle</li>
-</ul> 
+</ul>
 
 <div class="w3-row">
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
@@ -29,7 +29,7 @@
         </select>
       </p>
 
-      <p><label>Surface (m2)</label>
+      <p><label>Surface (ha)</label>
       <input class="w3-input w3-border" name="area" type="number" step="1" placeholder="0" value="<%= locals.parcel ? locals.parcel.area : '' %>"></p>
 
       <p><label>Densité</label>
