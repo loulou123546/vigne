@@ -30,9 +30,9 @@
       <p><label>Date de plantation</label>
       <input class="w3-input w3-border" name="date_planting" type="date" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>"></p>
 
-      <p><label>Coordonnées</label>
-        <input class="w3-input w3-border" id="lng" name="lng" type="number" step="0.000001" placeholder="longitude" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;">
-        <input class="w3-input w3-border" id="lat" name="lat" type="number" step="0.000001" placeholder="lagitude"  value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;"></p>
+      <p><label style="display:block;">Coordonnées</label>
+        <input class="w3-input w3-border" id="lng" name="lng" type="number" step="0.000001" placeholder="longitude" value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;">
+        <input class="w3-input w3-border" id="lat" name="lat" type="number" step="0.000001" placeholder="lagitude"  value="<%= locals.parcel ? locals.parcel.date_planting : '' %>" style="width: 50%;display: inline;"></p>
 
       <div id='map' style='width: 400px; height: 100%;'></div>
 
