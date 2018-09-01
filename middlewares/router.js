@@ -15,19 +15,15 @@ function checkSignIn(request, response, next) {
 
 // Dashboard.
 router.get('/', checkSignIn, (request, response) => {
-  const connection = db.createConnection()
-  connection.query('SELECT * FROM parcel', (error, results, fields) => {
-    if (error) throw error
-
+  models.getParcels().then(parcels => {
     response.render('layout', {
       view: 'dashboard',
       title: 'Tableau de bord',
       mail: request.session.user.mail,
       maxAge: request.session.cookie.maxAge,
-      parcels: results,
+      parcels: parcels,
     })
   })
-  connection.end()
 })
 
 // Get parcel.
@@ -59,14 +55,9 @@ router.post('/parcel/add', checkSignIn, (request, response) => {
   let parcelData = request.body
   // Get from session ?
   parcelData['farm_id'] = 1;
-  // Get connection
-  const connection = db.createConnection();
-  // Insert query
-  connection.query('INSERT INTO parcel SET ?', parcelData, (error) => {
-    if (error) throw error
-    response.redirect('/')
+  models.postParcel(parcelData).then(() => {
+    response.redirect('/');
   })
-  connection.end()
 })
 
 // Parcel form.
@@ -87,40 +78,29 @@ router.post('/parcel/:pid(\\d+)/edit', checkSignIn, (request, response) => {
   let parcelData = request.body
   // Get from session ?
   parcelData['farm_id'] = 1
-  // Get connection
-  const connection = db.createConnection()
-  // Update query
-  connection.query('UPDATE parcel SET ? WHERE id = ?', [parcelData, request.params.pid], (error, results, fields) => {
-    if (error) throw error
-    response.redirect('/')
-  })
-  connection.end()
+  models.putParcel(parcelData, request.params.pid).then(() => {
+    response.redirect('/');
+  });
 })
 
 // Delete parcel.
 router.get('/parcel/:pid(\\d+)/delete', checkSignIn, (request, response) => {
-  const connection = db.createConnection()
-  connection.query('DELETE FROM parcel WHERE id = ?', [request.params.pid], (error, results, fields) => {
-    if (error) throw error
-    response.redirect('/')
-  })
-  connection.end()
+  models.deleteParcel(request.params.pid).then(() => {
+    response.redirect('/');
+  });
 })
 
 // Observation form.
 router.get('/parcel/:pid(\\d+)/observation/add', checkSignIn, (request, response) => {
   models.getParcel(request.params.pid).then(parcel => {
+    console.log(parcel)
     response.render('layout', {
       view: 'form-observation',
       title: 'Créer une observation',
       date_now: moment().format('YYYY-MM-DD'), 
-      parcel: {
-        id: parcel.id,
-        name: parcel.name
-      }
+      parcel: parcel
     })
   })
-  connection.end();
 })
 
 // Add observation.
@@ -131,12 +111,8 @@ router.post('/parcel/:pid(\\d+)/observation/add', checkSignIn, (request, respons
   newObservation['user_id'] = 1;
   newObservation['bunch_area'] = null;
   // Get connection
-  const connection = db.createConnection()
-  // Insert query
-  connection.query('INSERT INTO observation SET ?', newObservation, (error) => {
-    if (error) throw error
-    connection.end()
-    response.redirect(`/parcel/${request.params.pid}`)
+  models.postObservation(newObservation).then(() => {
+    response.redirect(`/parcel/${request.params.pid}`);
   })
 })
 
@@ -161,14 +137,9 @@ router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', checkSignIn, (reque
 
 // Edit observation.
 router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', checkSignIn, (request, response) => {
-  const observationData = request.body;
-  const connection = db.createConnection()
-  // Update query
-  connection.query('UPDATE observation SET ? WHERE id = ?', [observationData, request.params.oid], (error, results, fields) => {
-    if (error) throw error
+  models.putObservation(request.body, request.params.oid).then(() => {
     response.redirect(`/parcel/${request.params.pid}`);
-  })
-  connection.end()
+  });
 })
 
 // Delete observation.

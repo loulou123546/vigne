@@ -28,10 +28,11 @@ CREATE TABLE vigne.`parcel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `farm_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `area` int(11) NOT NULL,
-  `density` decimal(10, 2) NOT NULL,
+  `area` float NOT NULL,
   `type` tinyint(4) NOT NULL,
   `date_planting` datetime,
+  `row_distance` float NOT NULL,
+  `plant_distance` float NOT NULL,
   `lng` float NOT NULL,
   `lat` float NOT NULL,
   PRIMARY KEY (`id`),
@@ -58,7 +59,7 @@ CREATE TABLE vigne.`observation` (
   PRIMARY KEY (`id`),
   FOREIGN KEY (`parcel_id`)
     REFERENCES vigne.parcel(`id`)
-    ON UPDATE CASCADE ON DELETE CASCADE,
+    ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=INNODB  DEFAULT CHARSET=utf8;
 
 
@@ -84,10 +85,10 @@ INSERT INTO vigne.user (`id`, `farm_id`, `mail`, `password`, `first_name`, `last
 (2, 1, 'martin@pins.fr', 'test', 'François', 'Martin');
 
 
-INSERT INTO vigne.parcel (`id`, `farm_id`, `name`, `area`, `density`, `type`, `date_planting`, `lng`, `lat`) VALUES
-(1, 1, 'Parcelle 1', 500, 50, 1, '2014-05-28 00:00:00', '49.567251', '3.557852'),
-(2, 1, 'Parcelle 2', 500, 50, 1, '2014-07-24 00:00:00', '49.578515', '3.694542'),
-(3, 1, 'Parcelle 3', 500, 50, 1, '2013-09-14 00:00:00', '49.236585', '3.526866');
+INSERT INTO vigne.parcel (`id`, `farm_id`, `name`, `area`, `type`, `date_planting`, `row_distance`, `plant_distance`, `lng`, `lat`) VALUES
+(1, 1, 'Parcelle 1', 500, 1, '2014-05-28 00:00:00', 1, 1.15, '49.567251', '3.557852'),
+(2, 1, 'Parcelle 2', 500, 1, '2014-07-24 00:00:00', 1, 1.15, '49.578515', '3.694542'),
+(3, 1, 'Parcelle 3', 500, 1, '2013-09-14 00:00:00', 1, 1.15, '49.236585', '3.526866');
 
 /*
 INSERT INTO vigne.estimation (`id`, `parcel_id`, `date`) VALUES

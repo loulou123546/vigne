@@ -16,7 +16,7 @@
   <div class="w3-col s12 m8 l4">
     <p><label>Saisissez les données d'observation ci-dessous.</label></p>
 
-    <form method="post" action="<%= locals.parcel ? `/parcel/${locals.parcel.id}/observation/${locals.observation.id}/edit` : `/parcel/${locals.parcel.id}/observation/add` %>" >
+    <form method="post" action="<%= locals.observation ? `/parcel/${locals.parcel.id}/observation/${locals.observation.id}/edit` : `/parcel/${locals.parcel.id}/observation/add` %>" >
 
       <div class="w3-container w3-card-4 w3-white">
         <h3>Etape 1</h3>
