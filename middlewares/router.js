@@ -1,6 +1,6 @@
 import express from 'express'
 import moment from 'moment'
-import * as db from './db'
+import * as db from '../config/db'
 
 const router = express.Router()
 

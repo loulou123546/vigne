@@ -7,7 +7,10 @@
 ## Installation
 
 * `npm init`
+* `npm run dev`
 * `http://localhost:8080/`
+
+Créer le fichier database-local.json avec ces informations de base de données.
 
 ## Routes
 

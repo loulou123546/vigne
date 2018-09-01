@@ -1,0 +1,8 @@
+{
+  "client": "mysql",
+  "connection": {
+    "host": "localhost",
+    "user": "root",
+    "password": "azerty"
+  }
+}
