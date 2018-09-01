@@ -95,8 +95,8 @@
             }
         });
 
-        document.getElementById("lng").value = long;
-        document.getElementById("lat").value = lat;
+        document.getElementById("lng").value = long.toFixed(6);
+        document.getElementById("lat").value = lat.toFixed(6);
 
         const req = new XMLHttpRequest();
 
