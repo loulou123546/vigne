@@ -3,11 +3,15 @@ import * as db from '../config/db';
 export const getParcels = (farm_id) => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection();
-    const sql = `
+    let sql = `
       SELECT *, parcel.id as parcel_id FROM parcel
       LEFT JOIN observation
       ON (parcel.id = observation.parcel_id)
-      WHERE parcel.farm_id = ${farm_id}
+    `;
+    // if farm_id !== undefined, we add WHERE clause
+    console.log(farm_id)
+    //sql = sql + (farm_id !== undefined) ? `WHERE parcel.farm_id = ${farm_id}` : '';
+    sql = sql + `
       GROUP by parcel.id
       ORDER BY observation.step_1_date DESC;
     `;
@@ -127,6 +131,21 @@ export const putObservation = (data, obs_id) => {
       if (error) throw error
       connection.end()
       resolve();
+    })
+    return;
+  });
+}
+
+export const getAlerts = () => {
+  return new Promise((resolve, reject) => {
+    const connection = db.createConnection();
+    const sql = `
+      SELECT * FROM alerts
+    `;
+    connection.query(sql, (error, alerts) => {
+      if (error) throw error
+      connection.end();
+      resolve(alerts);
     })
     return;
   });

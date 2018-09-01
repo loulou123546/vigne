@@ -14,6 +14,8 @@ function checkSignIn(request, response, next) {
   }
 }
 
+
+
 // Dashboard.
 router.get('/', checkSignIn, (request, response) => {
   models.getParcels(request.session.user.farm_id).then((parcels) => {
@@ -230,6 +232,42 @@ router.get('/social', (request, response) => {
     view: 'social',
     title: 'Social',
   })
+})
+
+router.get('/socialData', (request, response) => {
+  models.getParcels().then(parcels => {
+    let results = [];
+    parcels.map((parcel) => {
+      if (parcel.id) {
+        results.push({
+          lat: parcel.lat,
+          lng: parcel.lng,
+          rend: rendement.grappeMetreCarre(
+                  parcel.bunch_number,
+                  parcel.plant_number,
+                  parcel.row_distance,
+                  parcel.plant_distance,
+                ).rendement1(parcel.area)
+        });
+      }
+      return parcel
+    })
+    response.send(results)
+  });
+})
+
+router.get('/alerts', (request, response) => {
+  models.getAlerts().then(alerts => {
+    response.render('layout', {
+      view: 'alert',
+      title: 'Alertes'
+    })
+  });
+})
+
+router.post('/alerts', (request, response) => {
+  console.log('post alert')
+  console.log(request.body)
 })
 
 export default router

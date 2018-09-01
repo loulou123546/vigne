@@ -77,6 +77,20 @@ CREATE TABLE vigne.`result` (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE vigne.`alert` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `date` datetime NOT NULL,
+  `type` tinyint(4) NOT NULL,
+  `description` text,
+  `lat` float NOT NULL,
+  `lng` float NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`)
+    REFERENCES vigne.user(`id`)
+    ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=INNODB DEFAULT CHARSET=utf8;
+
 /*
 INSERT INTO vigne.farm (`id`, `name`) VALUES
 (1, 'La Ferme des Pins');

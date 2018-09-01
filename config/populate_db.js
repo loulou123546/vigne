@@ -116,8 +116,23 @@ const populateObservations = async () => {
 	})
 };
 
+const populateAlerts = async () => {
+	const alerts = [{
+		id: 1,
+		user_id: 1,
+		date: moment().format('YYY-MM-DD'),
+		type: 1,
+		description: 'Alerte rouge, alerte rouge !',
+		lat: 43.5896523,
+		lng: 1.548562
+	}];
+	await insertEntries('alert', alerts);
+}
+
 if (process.argv[2] === 'parcel') {
 	populateFarmsUsersParcels();
 } else if (process.argv[2] === 'observation') {
 	populateObservations();
+} else if (process.argv[2] === 'alert') {
+	populateAlerts();
 }
