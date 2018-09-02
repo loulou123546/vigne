@@ -93,6 +93,12 @@ const fetchParcelsByName = () => {
 	});
 }
 
+const BUNCHES_MIN = 250;
+const BUNCHES_MAX = 350;
+
+const SUGAR_RATE_MIN = 17;
+const SUGAR_RATE_MAX = 31;
+
 const populateObservations = async () => {
 	let observations = [];
 	fetchParcelsByName().then(parcelsByName => {
@@ -102,10 +108,14 @@ const populateObservations = async () => {
 		 		user_id: null,
 		 		step_1_date: (data.annee !== 'NA') ? moment(data.annee, 'YYYY').format('YYYY-MM-DD') : null,
 		 		plant_number: data.nb_ceps_compte,
-		 		bunch_number: (data.nb_grappes_total !== 'NA') ? data.nb_grappes_total : null,
+		 		bunch_number: (data.nb_grappes_total !== 'NA')
+		 			? data.nb_grappes_total :
+		 			Math.floor(Math.random() * (BUNCHES_MAX - BUNCHES_MIN)) + BUNCHES_MIN,
 		 		bunch_area: data.nb_grappes_m2,
 		 		weight: data.poids_grappe_moyen_1,
-		 		sugar_rate: (data.taux_sucre_moyen_1 !== 'NA') ? data.taux_sucre_moyen_1 : null,
+		 		sugar_rate: (data.taux_sucre_moyen_1 !== 'NA')
+		 			? data.taux_sucre_moyen_1 :
+		 			Math.floor(Math.random() * (SUGAR_RATE_MAX - SUGAR_RATE_MIN)) + SUGAR_RATE_MIN,
 		 		weight_real: data.poids_grappe_moyen_2,
 		 		sugar_rate_real: (data.taux_sucre_moyen_2 !== 'NA') ? data.taux_sucre_moyen_2 : null
 		 	};
@@ -121,11 +131,11 @@ const populateAlerts = async () => {
 	const alerts = [{
 		id: 1,
 		user_id: 1,
-		date: '2018-05-02',
+		date: '2018-08-26',
 		type: 1,
-		description: 'Oïdiun détecté sur une dizaine de pieds.',
-		lat: 43.5896523,
-		lng: 1.548562
+		description: 'Pourriture grise détectée.',
+		lat: 48.2345,
+		lng: 4.32568
 	}, {
 		id: 2,
 		user_id: 1,
@@ -139,9 +149,25 @@ const populateAlerts = async () => {
 		user_id: 1,
 		date: '2018-05-11',
 		type: 1,
-		description: 'Attention, mildiou !',
+		description: 'Premier foyer de mildiou détecté.',
 		lat: 49.014453,
 		lng: 4.36601
+	}, {
+		id: 4,
+		user_id: 1,
+		date: '2018-08-20',
+		type: 2,
+		description: 'Retard de maturité.',
+		lat: 48.4582,
+		lng: 4.48562
+	}, {
+		id: 5,
+		user_id: 1,
+		date: '2018-05-11',
+		type: 2,
+		description: 'Retard de maturité.',
+		lat: 49.014453,
+		lng: 4.2152
 	}];
 	await insertEntries('alert', alerts);
 }

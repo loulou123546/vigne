@@ -4,6 +4,8 @@ import * as db from '../config/db'
 import * as models from './models'
 import * as rendement from '../lib/rendement'
 
+moment.locale('fr');
+
 const router = express.Router()
 function checkSignIn(request, response, next) {
   if (request.session.user) {
@@ -265,7 +267,7 @@ router.get('/alerts', (request, response) => {
 router.get('/alertData', (request, response) => {
   models.getAlerts().then(alerts => {
     let results = alerts.map(alertData => {
-      alertData.date = moment(alertData.date).format('DD MMM YYYY');
+      alertData.date = moment(alertData.date).format('ll');
       alertData.type = (alertData.type === 1) ? 'Maladie' : 'Autre';
       return alertData;
     })
