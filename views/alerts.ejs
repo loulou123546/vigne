@@ -1,160 +1,156 @@
-<header class="w3-container w3-hide-small hero-bg w3-center w3-margin-32 w3-padding-32" style="padding-top: 0px!important;">
-    <div class="w3-container hero-bg w3-cell-row">
-        <div class="w3-cell onhover-bg w3-padding-16"><a href="/">Mon exploitation</a></div>
-        <div class="w3-cell onhover-bg w3-padding-16"><a href="/social">Espace collaboratif</a></div>
-        <div class="w3-cell onhover-bg w3-padding-16"><a href="/alerts">Alertes</a></div>
-        <div class="w3-cell onhover-bg w3-padding-16"><%= locals.mail || '' %></div>
+<header class="w3-container w3-hide-small hero-bg w3-center w3-margin-32">
+  <%- include('menu') %>
+  <h1 class="w3-xxxlarge"><b>Espace Alertes</b></h1>
+</header>
+<header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center">
+  <%- include('menu') %>
+  <h1 class="w3-xlarge"><b>Espace Alertes</b></h1>
+</header>
+
+<div id="mymodal" class="w3-modal">
+  <div class="w3-modal-content">
+    <div>
+      <span onclick="document.getElementById('mymodal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+      <div class="hero-bg w3-xlarge w3-center w3-padding" id="modal_name">{{title}}</div>
+      <p id="modal_desc" style="background-color:white;color:black;padding: 0px 16px;">{{description}}</p>
+      <div class="hero-bg w3-padding" id="modal_date">{{date}}</div>
     </div>
-    <h1 class="w3-xxxlarge"><b>Espace Alertes</b></h1>
-    </header>
-    <header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center w3-padding-32">
-    <h1 class="w3-xlarge"><b>Espace Alertes</b></h1>
-    </header>
-    
-    <div id="mymodal" class="w3-modal">
-        <div class="w3-modal-content">
-            <div>
-            <span onclick="document.getElementById('mymodal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <div class="hero-bg w3-xlarge w3-center w3-padding" id="modal_name">{{title}}</div>
-            <p id="modal_desc" style="background-color:white;color:black;padding: 0px 16px;">{{description}}</p>
-            <div class="hero-bg w3-padding" id="modal_date">{{date}}</div>
-            </div>
-        </div>
-    </div>
-    
-    <div id='map' style='width: calc(100vw - 64px); height: 400px; margin: 32px;'></div>
-                    
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
-    <script>
-        let Increment = 0;
-    
-        mapboxgl.accessToken = 'pk.eyJ1IjoibG91bG91MTIzNTQ2IiwiYSI6ImNqbGl6MHptcjA2MDczcHIwMTU2ajIxYzIifQ.ju33SqTTHGHZdunbEx7VKg';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/satellite-streets-v10',
-            center: [4.360305, 48.960159],
-            zoom: 5
-        });
-    
-        
-        let receivedJSON = []
-        const req = new XMLHttpRequest();
-        req.onreadystatechange = function(event) {
-            // XMLHttpRequest.DONE === 4
-            if (this.readyState === XMLHttpRequest.DONE) {
-                if (this.status === 200) {
-                    receivedJSON = JSON.parse(this.responseText)
-                    let temp_maladie = []
-                    let temp_alert = []
-                    receivedJSON.forEach(element => {
-                        if(element.type == "Maladie"){
-                            temp_maladie.push({
-                                "type": "Feature",
-                                "properties": {},
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        element.lng,
-                                        element.lat
-                                    ]
-                                }
-                            })
-                        } else {
-                            temp_alert.push({
-                                "type": "Feature",
-                                "properties": {},
-                                "geometry": {
-                                    "type": "Point",
-                                    "coordinates": [
-                                        element.lng,
-                                        element.lat
-                                    ]
-                                }
-                            })
-                        }
-                        
-                    });
-                    map.addLayer({
-                        "id": "farmsM",
-                        "type": "symbol",
-                        "source": {
-                            "type": "geojson",
-                            "data": {
-                                "type": "FeatureCollection",
-                                "features": temp_maladie
+  </div>
+</div>
+
+<div id='map' style='width: calc(100vw - 64px); height: 400px; margin: 32px;'></div>
+
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+<script>
+    let Increment = 0;
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoibG91bG91MTIzNTQ2IiwiYSI6ImNqbGl6MHptcjA2MDczcHIwMTU2ajIxYzIifQ.ju33SqTTHGHZdunbEx7VKg';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/satellite-streets-v10',
+        center: [4.360305, 48.960159],
+        zoom: 5
+    });
+
+
+    let receivedJSON = []
+    const req = new XMLHttpRequest();
+    req.onreadystatechange = function(event) {
+        // XMLHttpRequest.DONE === 4
+        if (this.readyState === XMLHttpRequest.DONE) {
+            if (this.status === 200) {
+                receivedJSON = JSON.parse(this.responseText)
+                let temp_maladie = []
+                let temp_alert = []
+                receivedJSON.forEach(element => {
+                    if(element.type == "Maladie"){
+                        temp_maladie.push({
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    element.lng,
+                                    element.lat
+                                ]
                             }
-                        },
-                        "layout": {
-                            "icon-image": "farmM",
-                            "icon-size": 0.05,
-                            "icon-allow-overlap": true
-                        }
-                    });
-                    map.addLayer({
-                        "id": "farmsA",
-                        "type": "symbol",
-                        "source": {
-                            "type": "geojson",
-                            "data": {
-                                "type": "FeatureCollection",
-                                "features": temp_alert
+                        })
+                    } else {
+                        temp_alert.push({
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    element.lng,
+                                    element.lat
+                                ]
                             }
-                        },
-                        "layout": {
-                            "icon-image": "farmA",
-                            "icon-size": 0.05,
-                            "icon-allow-overlap": true
-                        }
-                    });
-                    map.resize();
-                    map.setZoom(6)
-                } else {
-                    alert("Erreur dans la recup AJAX")
-                }
-            }
-        };
-    
-        map.on('load', function () {
-            map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_maladie.png', function(error, image) {
-                if (error) throw error;
-                map.addImage('farmM', image)
-            });
-            map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_alert.png', function(error, image) {
-                if (error) throw error;
-                map.addImage('farmA', image)
-            });
-            req.open('GET', '/alertData', true);
-            req.send(null);
-        });
-    
-    
-        map.on("click", function(e) {
-            let res = {
-                lng: 0,
-                lat: 0,
-                name: "Alerte",
-                desc: "Pas d'info sup.",
-                date: "xx septembre",
-                dist: 0.5
-            }
-            receivedJSON.forEach(element => {
-                if(Math.abs(e.lngLat.lng - element.lng) + Math.abs(e.lngLat.lat - element.lat) < res.dist){
-                    res = {
-                        lng: element.lng,
-                        lat: element.lat,
-                        name: element.type,
-                        desc: element.description,
-                        date: element.date,
-                        dist: Math.abs(e.lngLat.lng - element.lng) + Math.abs(e.lngLat.lat - element.lat)
+                        })
                     }
+
+                });
+                map.addLayer({
+                    "id": "farmsM",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": temp_maladie
+                        }
+                    },
+                    "layout": {
+                        "icon-image": "farmM",
+                        "icon-size": 0.05,
+                        "icon-allow-overlap": true
+                    }
+                });
+                map.addLayer({
+                    "id": "farmsA",
+                    "type": "symbol",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "FeatureCollection",
+                            "features": temp_alert
+                        }
+                    },
+                    "layout": {
+                        "icon-image": "farmA",
+                        "icon-size": 0.05,
+                        "icon-allow-overlap": true
+                    }
+                });
+                map.resize();
+                map.setZoom(6)
+            } else {
+                alert("Erreur dans la recup AJAX")
+            }
+        }
+    };
+
+    map.on('load', function () {
+        map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_maladie.png', function(error, image) {
+            if (error) throw error;
+            map.addImage('farmM', image)
+        });
+        map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_alert.png', function(error, image) {
+            if (error) throw error;
+            map.addImage('farmA', image)
+        });
+        req.open('GET', '/alertData', true);
+        req.send(null);
+    });
+
+
+    map.on("click", function(e) {
+        let res = {
+            lng: 0,
+            lat: 0,
+            name: "Alerte",
+            desc: "Pas d'info sup.",
+            date: "xx septembre",
+            dist: 0.5
+        }
+        receivedJSON.forEach(element => {
+            if(Math.abs(e.lngLat.lng - element.lng) + Math.abs(e.lngLat.lat - element.lat) < res.dist){
+                res = {
+                    lng: element.lng,
+                    lat: element.lat,
+                    name: element.type,
+                    desc: element.description,
+                    date: element.date,
+                    dist: Math.abs(e.lngLat.lng - element.lng) + Math.abs(e.lngLat.lat - element.lat)
                 }
-            });
-            if(res.dist < 0.5){
-                document.getElementById("modal_name").innerHTML = res.name
-                document.getElementById("modal_desc").innerHTML = res.desc
-                document.getElementById("modal_date").innerHTML = "Publié le : " + res.date
-                document.getElementById("mymodal").style.display = 'block'
             }
         });
-    </script>
+        if(res.dist < 0.5){
+            document.getElementById("modal_name").innerHTML = res.name
+            document.getElementById("modal_desc").innerHTML = res.desc
+            document.getElementById("modal_date").innerHTML = "Publié le : " + res.date
+            document.getElementById("mymodal").style.display = 'block'
+        }
+    });
+</script>

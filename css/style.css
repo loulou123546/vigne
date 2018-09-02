@@ -111,7 +111,9 @@ td .w3-button {
 .add-parcel {
   margin: 30px;
 }
-
+.parcel {
+  text-decoration: none;
+}
 
  /* Style the list */
 ul.breadcrumb {
@@ -156,10 +158,18 @@ h2 strong {
 .card {
   font-size: 21px;
 }
-.card .w3-large {
+.card ul {
+  list-style: none;
+}
+.card .obs {
+  font-style: italic;
+  font-size: 14px;
+}
+.card .title {
   display: block;
   background: #882042;
   padding: 10px;
+  font-size: 20px;
 }
 
 .w3-our-blue {

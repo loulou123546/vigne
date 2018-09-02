@@ -1,17 +1,10 @@
-<header class="w3-container w3-hide-small hero-bg w3-center w3-margin-32 w3-padding-32" style="padding-top: 0px!important;">
-  <div class="w3-container hero-bg w3-cell-row">
-    <div class="w3-cell onhover-bg w3-padding-16"><a href="/">Mon exploitation</a></div>
-    <div class="w3-cell onhover-bg w3-padding-16"><a href="/social">Espace collaboratif</a></div>
-    <div class="w3-cell onhover-bg w3-padding-16"><a href="/alerts">Alertes</a></div>
-    <div class="w3-cell onhover-bg w3-padding-16"><%= locals.mail || '' %></div>
-    <div class="w3-cell onhover-bg w3-padding-16"><a href="logout"><i class="fa fa-user-times"></i></a></div>
-  </div>
-  <img src="logo.png" alt="" width="100">
+<header class="w3-container w3-hide-small hero-bg w3-center">
+  <%- include('menu') %>
   <h1 class="w3-jumbo"><b>Mon exploitation</b></h1>
   <h2 class="w3-xlarge">Rendement : <strong><%= locals.totalrend %></strong> Kg/Ha</h2>
 </header>
-<header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center w3-padding-32">
-  <img src="logo.png" alt="" width="100">
+<header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center">
+  <%- include('menu') %>
   <h1 class="w3-xxlarge"><b>Mon exploitation</b></h1>
   <h2 class="w3-large">Rendement : <strong><%= locals.totalrend %></strong> Kg/Ha</h2>
 </header>
@@ -30,13 +23,13 @@
   <tbody class="card">
     <% for(var i = 0 ; i < locals.parcels.length ; i++) { %>
     <tr>
-      <td class="tooltip"><a href="parcel/<%= locals.parcels[i].parcel_id %>"><%= locals.parcels[i].name %></a><span class="tooltiptext"> &nbsp; Voir les infos &nbsp; </span></td>
+      <td><a href="parcel/<%= locals.parcels[i].parcel_id %>" class="parcel"><i class="fa fa-eye"></i> <%= locals.parcels[i].name %></a></td>
       <td><%= locals.parcels[i].rend %></td>
       <td><%= locals.parcels[i].last_date %></td>
       <td>
-        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/observation/add %>" class="w3-button tool-green tooltip"><i class="fa fa-plus-square"></i></a>
-        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/edit" class="w3-button tool-yellow tooltip"><i class="fa fa-pencil"></i></a>
-        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/delete" class="w3-button tool-red tooltip"><i class="fa fa-trash"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/observation/add %>" class="w3-button tool-green"><i class="fa fa-plus-square"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/edit" class="w3-button tool-yellow"><i class="fa fa-pencil"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/delete" class="w3-button tool-red"><i class="fa fa-trash"></i></a>
       </td>
     </tr>
     <% } %>
@@ -45,13 +38,13 @@
 
 <% for(var i = 0 ; i < locals.parcels.length ; i++) { %>
 <div class="w3-card-4 w3-our-blue w3-center w3-margin w3-hide-medium w3-hide-large card">
-  <a class="w3-large" href="parcel/<%= locals.parcels[i].parcel_id %>"><%= locals.parcels[i].name %></a>
+  <a class="title parcel" href="parcel/<%= locals.parcels[i].parcel_id %>"><i class="fa fa-eye"></i> <%= locals.parcels[i].name %></a>
   <ul class="w3-left-align">
     <li>Rendement : <%= locals.parcels[i].rend %> Kg/Ha</li>
-    <li>Date : <%= locals.parcels[i].last_date %></li>
+    <li class="obs">Dernière obs. : <%= locals.parcels[i].last_date %></li>
   </ul>
-  <a href="/parcel/<%= locals.parcels[i].parcel_id %>/observation/add %>" class="w3-button tooltip tool-green"><i class="fa fa-plus-square"></i></a>
-        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/edit" class="w3-button tooltip tool-yellow"><i class="fa fa-pencil"></i></a>
-        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/delete" class="w3-button tooltip tool-red"><i class="fa fa-trash"></i></a>
+  <a href="/parcel/<%= locals.parcels[i].parcel_id %>/observation/add %>" class="w3-button tool-green"><i class="fa fa-plus-square"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/edit" class="w3-button tool-yellow"><i class="fa fa-pencil"></i></a>
+        <a href="/parcel/<%= locals.parcels[i].parcel_id %>/delete" class="w3-button tool-red"><i class="fa fa-trash"></i></a>
 </div>
 <% } %>
