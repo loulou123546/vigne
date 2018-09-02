@@ -256,7 +256,7 @@ router.get('/socialData', (request, response) => {
   });
 })
 
-router.get('/alert', (request, response) => {
+router.get('/alerts', (request, response) => {
   models.getAlerts().then(alerts => {
     console.log(alerts)
     /*response.render('layout', {
@@ -266,7 +266,7 @@ router.get('/alert', (request, response) => {
   });
 })
 
-router.post('/alert', (request, response) => {
+router.post('/alerts', (request, response) => {
   console.log('post alert')
   console.log(request.body)
 })
