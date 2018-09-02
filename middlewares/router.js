@@ -255,7 +255,7 @@ router.get('/social', (request, response) => {
 })
 
 router.get('/socialData', (request, response) => {
-  models.getParcels().then(parcels => {
+  models.getParcels(1).then(parcels => {
     let results = [];
     parcels.map((parcel) => {
       if (parcel.id) {
