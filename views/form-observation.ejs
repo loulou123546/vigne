@@ -22,15 +22,15 @@
         <h3>Étape 1</h3>
 
         <p><label>Date d'observation</label>
-        <input class="w3-input w3-border" name="step_1_date" type="date" value="<%= locals.observation ? locals.observation.step_1_date : '' %>"></p>
+        <input class="w3-input w3-border" name="step_1_date" type="date" value="<%= locals.observation ? locals.observation.step_1_date : '' %>" required></p>
 
         <p><label>Nombre de pieds comptés</label>
-        <input class="w3-input w3-border" name="plant_number" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.plant_number : '' %>">
+        <input class="w3-input w3-border" name="plant_number" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.plant_number : '' %>" required>
         <span class="label label-warning">La valeur par défaut ci-dessus est recommandée.</span>
         </p>
 
         <p><label>Nombre de grappes total</label>
-        <input class="w3-input w3-border" name="bunch_number" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.bunch_number : '' %>"></p>
+        <input class="w3-input w3-border" name="bunch_number" type="number" min="0" step="1" value="<%= locals.observation ? locals.observation.bunch_number : '' %>" required></p>
       </div>
 
       <br/>

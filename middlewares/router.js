@@ -14,8 +14,6 @@ function checkSignIn(request, response, next) {
   }
 }
 
-
-
 // Dashboard.
 router.get('/', checkSignIn, (request, response) => {
   models.getParcels(request.session.user.farm_id).then((parcels) => {
