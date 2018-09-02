@@ -146,6 +146,12 @@ router.post('/parcel/:pid(\\d+)/observation/add', checkSignIn, (request, respons
   newObservation['parcel_id'] = request.params.pid;
   newObservation['user_id'] = 1;
   newObservation['bunch_area'] = null;
+  if (newObservation['step_2_date'] === '') {
+    newObservation['step_2_date'] = null;
+  }
+  if (newObservation['step_3_date'] === '') {
+    newObservation['step_3_date'] = null;
+  }
   // Get connection
   models.postObservation(newObservation).then(() => {
     response.redirect(`/parcel/${request.params.pid}`);
@@ -173,7 +179,14 @@ router.get('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', checkSignIn, (reque
 
 // Edit observation.
 router.post('/parcel/:pid(\\d+)/observation/:oid(\\d+)/edit', checkSignIn, (request, response) => {
-  models.putObservation(request.body, request.params.oid).then(() => {
+  const newObservation = request.body;
+  if (newObservation['step_2_date'] === '') {
+    newObservation['step_2_date'] = null;
+  }
+  if (newObservation['step_3_date'] === '') {
+    newObservation['step_3_date'] = null;
+  }
+  models.putObservation(newObservation, request.params.oid).then(() => {
     response.redirect(`/parcel/${request.params.pid}`);
   });
 })
