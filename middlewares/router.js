@@ -256,13 +256,20 @@ router.get('/socialData', (request, response) => {
 })
 
 router.get('/alerts', (request, response) => {
+  response.render('layout', {
+    view: 'alerts',
+    title: 'Alertes',
+  })
+})
+
+router.get('/alertData', (request, response) => {
   models.getAlerts().then(alerts => {
-    console.log(alerts)
-    response.render('layout', {
-      view: 'alert',
-      title: 'Alertes',
-      alerts: alerts
+    let results = alerts.map(alertData => {
+      alertData.date = moment(alertData.date).format('DD MMM YYYY');
+      alertData.type = (alertData.type === 1) ? 'Maladie' : 'Autre';
+      return alertData;
     })
+    response.send(results)
   });
 })
 

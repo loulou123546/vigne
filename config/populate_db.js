@@ -121,11 +121,27 @@ const populateAlerts = async () => {
 	const alerts = [{
 		id: 1,
 		user_id: 1,
-		date: moment().format('YYY-MM-DD'),
+		date: '2018-05-02',
 		type: 1,
-		description: 'Alerte rouge, alerte rouge !',
+		description: 'Oïdiun détecté sur une dizaine de pieds.',
 		lat: 43.5896523,
 		lng: 1.548562
+	}, {
+		id: 2,
+		user_id: 1,
+		date: '2018-07-26',
+		type: 2,
+		description: 'La tempête du 24 juillet a ravagé quelques pieds.',
+		lat: 48.952147,
+		lng: 4.4678
+	}, {
+		id: 3,
+		user_id: 1,
+		date: '2018-05-11',
+		type: 1,
+		description: 'Attention, mildiou !',
+		lat: 49.014453,
+		lng: 4.36601
 	}];
 	await insertEntries('alert', alerts);
 }
