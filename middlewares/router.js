@@ -46,7 +46,7 @@ router.get('/', checkSignIn, (request, response) => {
     response.render('layout', {
       view: 'dashboard',
       title: 'Tableau de bord',
-      totalrend: totalrend,
+      totalrend,
       parcels,
     })
   })

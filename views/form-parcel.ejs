@@ -3,6 +3,7 @@
   <h1 class="w3-xxlarge"><b><%= locals.parcel ? 'Éditer' : 'Ajouter' %> une parcelle</b></h1>
 </header>
 <header class="w3-hide-medium w3-hide-large hero-bg w3-center">
+  <%- include('menu') %>
   <h1 class="w3-large"><b><%= locals.parcel ? 'Éditer' : 'Ajouter' %> une parcelle</b></h1>
 </header>
 
@@ -11,7 +12,7 @@
     <% if (locals.parcel) { %>
     <li><a href="/parcel/<%= locals.parcel.parcel_id %>"><%= locals.parcel.name %></a></li>
     <% } %>
-    <li><%= locals.parcel ? 'Edition' : 'Ajout' %> parcelle</li>
+    <li><%= locals.parcel ? 'Édition' : 'Ajout' %> parcelle</li>
 </ul>
 
 <div class="w3-row">
