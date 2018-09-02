@@ -10,9 +10,11 @@
 
 A l'aide d'un simple Tableau de bord, vous accéder à l'ensemble de vos besoins en terme de rendement, gestions des risques de maladies et de comparaison inter-parcelle
 
-<img src="https://cdn.discordapp.com/attachments/485131840814972928/485751973308792833/unknown.png" style="width:30%;">
-<img src="https://cdn.discordapp.com/attachments/485131840814972928/485752001083211777/unknown.png" style="width:30%;">
-<img src="https://cdn.discordapp.com/attachments/485131840814972928/485752045702217728/unknown.png" style="width:30%;">
+| &nbsp; | &nbsp; | &nbsp; |
+|:---:|:---:|:---:|
+|<img src="https://cdn.discordapp.com/attachments/485131840814972928/485751973308792833/unknown.png" width="30%" style="float:left;width:30%;">|
+<img src="https://cdn.discordapp.com/attachments/485131840814972928/485752001083211777/unknown.png" width="30%" style="float:left;width:30%;">|
+<img src="https://cdn.discordapp.com/attachments/485131840814972928/485752045702217728/unknown.png" width="30%" style="float:left;width:30%;">|
 
 
 ## Technologies utilisées
