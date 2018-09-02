@@ -9,8 +9,7 @@ export const getParcels = (farm_id) => {
       ON (parcel.id = observation.parcel_id)
     `;
     // if farm_id !== undefined, we add WHERE clause
-    console.log(farm_id)
-    //sql = sql + (farm_id !== undefined) ? `WHERE parcel.farm_id = ${farm_id}` : '';
+    sql = sql + ((farm_id !== undefined) ? `WHERE parcel.farm_id = ${farm_id}` : '');
     sql = sql + `
       GROUP by parcel.id
       ORDER BY observation.step_1_date DESC;
