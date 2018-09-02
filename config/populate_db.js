@@ -62,7 +62,7 @@ const populateParcels = async () => {
 	 		name: data.name,
 	 		area: data.area,
 	 		type: data.type,
-	 		date_planting: (data.date_planting === 'NA') ? data.date_planting : null,
+	 		date_planting: (data.date_planting !== 'NA') ? data.date_planting : null,
 	 		row_distance: data.dist_inter_rang,
 	 		plant_distance: data.dist_inter_plant,
 	 		lat: data.lat,
