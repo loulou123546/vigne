@@ -13,10 +13,11 @@
     
     <div id="mymodal" class="w3-modal">
         <div class="w3-modal-content">
-            <div class="w3-container">
+            <div>
             <span onclick="document.getElementById('mymodal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <h3 class="hero-bg w3-xlarge w3-center" id="modal_name">{{title}}</h3>
-            <p id="modal_desc">{{description}}</p>
+            <div class="hero-bg w3-xlarge w3-center w3-padding" id="modal_name">{{title}}</div>
+            <p id="modal_desc" style="background-color:white;color:black;padding: 0px 16px;">{{description}}</p>
+            <div class="hero-bg w3-padding" id="modal_date">{{date}}</div>
             </div>
         </div>
     </div>
@@ -134,6 +135,7 @@
                 lat: 0,
                 name: "Alerte",
                 desc: "Pas d'info sup.",
+                date: "xx septembre",
                 dist: 0.5
             }
             receivedJSON.forEach(element => {
@@ -143,6 +145,7 @@
                         lat: element.lat,
                         name: element.type,
                         desc: element.description,
+                        date: element.date,
                         dist: Math.abs(e.lngLat.lng - element.lng) + Math.abs(e.lngLat.lat - element.lat)
                     }
                 }
@@ -150,6 +153,7 @@
             if(res.dist < 0.5){
                 document.getElementById("modal_name").innerHTML = res.name
                 document.getElementById("modal_desc").innerHTML = res.desc
+                document.getElementById("modal_date").innerHTML = "Publié le : " + res.date
                 document.getElementById("mymodal").style.display = 'block'
             }
         });
