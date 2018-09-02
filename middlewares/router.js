@@ -46,7 +46,6 @@ router.get('/', checkSignIn, (request, response) => {
     response.render('layout', {
       view: 'dashboard',
       title: 'Tableau de bord',
-      mail: request.session.user.mail,
       totalrend: totalrend,
       parcels,
     })
@@ -259,7 +258,6 @@ router.get('/socialData', (request, response) => {
     let results = [];
     parcels.map((parcel) => {
       if (parcel.id) {
-        console.log(parcel.name)
         results.push({
           name: parcel.name,
           lat: parcel.lat,

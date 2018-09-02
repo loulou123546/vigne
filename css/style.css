@@ -5,7 +5,7 @@
 }
 .hero-bg{
     background-color: #404b69 !important;
-    margin-bottom: 10px;
+    padding-bottom: 5px;
 }
 .action-bg{
     background-color: #00818a !important;
@@ -108,8 +108,8 @@ td .w3-button {
     display: inline!important;
 }
 
-.add-parcel {
-  margin: 30px;
+.button-add {
+  margin: 16px 0 0 16px;
 }
 .parcel {
   text-decoration: none;
@@ -117,9 +117,10 @@ td .w3-button {
 
  /* Style the list */
 ul.breadcrumb {
-    padding: 10px 16px;
-    list-style: none;
-    text-align: left;
+  margin: 16px;
+  list-style: none;
+  text-align: left;
+  padding: 0;
 }
 
 /* Display list items side by side */
@@ -189,4 +190,16 @@ h2 strong {
   .img-login img {
     width: 100%;
   }
+}
+
+.menu {
+  border-bottom: #ccc 1px solid;
+  margin-bottom: 5px;
+  font-size: 25px;
+}
+.menu div {
+  width: 25%;
+}
+.menu a {
+  display: block;
 }
