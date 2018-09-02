@@ -60,13 +60,6 @@ table {
 }
 
 /* Tooltip */
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-radius: 14px;
-}
-
 .tooltip .tooltiptext {
     visibility: hidden;
     /*width: 120px;*/
@@ -98,6 +91,21 @@ table {
 .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
+}
+
+.tool-yellow {
+  color: #f6c523;
+  font-size: 40px;
+}
+
+.tool-green {
+  color: #4caf50;
+  font-size: 40px;
+}
+
+.tool-red {
+  color: red;
+  font-size: 40px;
 }
 
 td .w3-button {
@@ -150,4 +158,12 @@ ul.breadcrumb li a:hover {
 
 .size-fixed a {
   margin-bottom: 10px;
+}
+
+h2 strong {
+  font-size: 28px;
+}
+
+.card {
+  font-size: 21px;
 }

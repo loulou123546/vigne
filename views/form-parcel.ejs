@@ -16,7 +16,7 @@
 <div class="w3-row">
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
   <div class="w3-col s12 m8 l4">
-    <form class="w3-container w3-card-4 w3-white" method="post" action="<%= locals.parcel ? `/parcel/${locals.parcel.parcel_id}/edit` : '/parcel/add' %>">
+    <form class="w3-container w3-card-4 w3-white w3-margin" method="post" action="<%= locals.parcel ? `/parcel/${locals.parcel.parcel_id}/edit` : '/parcel/add' %>">
       <p><label>Nom</label>
       <input class="w3-input w3-border" name="name" type="text" placeholder="Nom" value="<%= locals.parcel ? locals.parcel.name : '' %>"></p>
 
