@@ -19,7 +19,8 @@ function checkSignIn(request, response, next) {
 // Dashboard.
 router.get('/', checkSignIn, (request, response) => {
   models.getParcels(request.session.user.farm_id).then((parcels) => {
-    parcels.map((parcel) => {
+    // Check there is at least one observation
+    parcels = parcels.map((parcel) => {
       if (parcel.id) {
         parcel.rend = rendement.grappeMetreCarre(
           parcel.bunch_number,
@@ -32,7 +33,7 @@ router.get('/', checkSignIn, (request, response) => {
       return parcel
     })
 
-    const totalrend = parcels.reduce((accumulator, parcel) => (parcel.id ? Number(parcel.rend) + accumulator : accumulator), 0)
+    const totalrend = parcels.reduce((accumulator, parcel) => (parcel.id ? Number(parcel.rend) + accumulator : accumulator), 0).toFixed(2)
 
     for (let i = 0; i < parcels.length; i++) {
       const parcel = parcels[i]

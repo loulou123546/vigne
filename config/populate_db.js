@@ -24,6 +24,32 @@ const insertEntries = async (table_name, datasets) => {
 }
 
 
+const deleteParcelsWithoutObservations = () => {
+	return new Promise((resolve, reject) => {
+	    const connection = db.createConnection();
+	    let sql = `
+	    	SELECT P.id FROM parcel P
+	    	LEFT JOIN observation O
+	    	ON (P.id = O.parcel_id)
+	    	WHERE O.step_1_date IS NULL
+	    	GROUP BY P.id
+	    	ORDER BY O.step_1_date DESC;
+	    `;
+	    connection.query(sql, (error, results) => {
+	    	if (error) throw error
+	    	results = results.map(item => item.id).join(',');
+	    	let sql = `DELETE FROM parcel WHERE id IN (${results})`;
+	    	connection.query(sql, (error, results) => {
+	    		if (error) throw error
+				connection.end();
+			})
+			return;
+	    })
+	    return;
+	});
+}
+
+
 const populateFarms = async () => {
 	let farms = [];
 	for (var i = 1 ; i < 15 ; i++) {
@@ -103,10 +129,17 @@ const populateObservations = async () => {
 	let observations = [];
 	fetchParcelsByName().then(parcelsByName => {
 		csv.fromPath("./config/TAB_obs.csv", {headers: true}).on("data", function(data){
+			let dateObservation = null;
+			if (data.annee !== 'NA') {
+				let day = Math.floor(Math.random() * (28-1)) + 1;
+				let month = Math.floor(Math.random() * (9-7)) + 7;
+				dateObservation = moment({year: data.annee, month: month, day: day}).format('YYYY-MM-DD');
+			}
+
 		 	let entry = {
 		 		parcel_id: parcelsByName[data.name].id,
 		 		user_id: null,
-		 		step_1_date: (data.annee !== 'NA') ? moment(data.annee, 'YYYY').format('YYYY-MM-DD') : null,
+		 		step_1_date: dateObservation,
 		 		plant_number: data.nb_ceps_compte,
 		 		bunch_number: (data.nb_grappes_total !== 'NA')
 		 			? data.nb_grappes_total :
@@ -182,4 +215,6 @@ if (process.argv[2] === 'farm') {
 	populateObservations();
 } else if (process.argv[2] === 'alert') {
 	populateAlerts();
+} else if (process.argv[2] === 'deleteSomeParcels') {
+	deleteParcelsWithoutObservations();
 }

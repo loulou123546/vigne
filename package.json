@@ -9,7 +9,7 @@
     "build": "rm -rf public && mkdir public && npm run build_js && npm run build_css",
     "dev": "npm run build && DEBUG=vigne nodemon index.js",
     "start": "npm run build && node -r babel-register index.js",
-    "populate": "node -r babel-register config/populate_db.js farm && node -r babel-register config/populate_db.js user && node -r babel-register config/populate_db.js parcel && node -r babel-register config/populate_db.js observation && node -r babel-register config/populate_db.js alert"
+    "populate": "node -r babel-register config/populate_db.js farm && node -r babel-register config/populate_db.js user && node -r babel-register config/populate_db.js parcel && node -r babel-register config/populate_db.js observation && node -r babel-register config/populate_db.js alert && node -r babel-register config/populate_db.js deleteSomeParcels"
   },
   "keywords": [],
   "author": "NerOcrO",
