@@ -8,6 +8,7 @@ const insertEntry = (connection, table_name, dataset) => {
 	return new Promise((resolve, reject) => {
 		const sql = `INSERT INTO ${table_name} SET ? ;`; 
 		connection.query(sql, dataset, (error) => {
+			if (error) throw error;
 			resolve();
 		});
 		return;
@@ -61,7 +62,7 @@ const populateParcels = async () => {
 	 		name: data.name,
 	 		area: data.area,
 	 		type: data.type,
-	 		date_planting: data.date_planting,
+	 		date_planting: (data.date_planting === 'NA') ? data.date_planting : null,
 	 		row_distance: data.dist_inter_rang,
 	 		plant_distance: data.dist_inter_plant,
 	 		lat: data.lat,
@@ -99,14 +100,14 @@ const populateObservations = async () => {
 		 	let entry = {
 		 		parcel_id: parcelsByName[data.name].id,
 		 		user_id: null,
-		 		step_1_date: moment(data.annee, 'YYYY').format('YYYY-MM-DD'),
+		 		step_1_date: (data.annee !== 'NA') ? moment(data.annee, 'YYYY').format('YYYY-MM-DD') : null,
 		 		plant_number: data.nb_ceps_compte,
-		 		bunch_number: data.nb_grappes_total,
+		 		bunch_number: (data.nb_grappes_total !== 'NA') ? data.nb_grappes_total : null,
 		 		bunch_area: data.nb_grappes_m2,
 		 		weight: data.poids_grappe_moyen_1,
-		 		sugar_rate: data.taux_sucre_moyen_1,
+		 		sugar_rate: (data.taux_sucre_moyen_1 !== 'NA') ? data.taux_sucre_moyen_1 : null,
 		 		weight_real: data.poids_grappe_moyen_2,
-		 		sugar_rate_real: data.taux_sucre_moyen_2
+		 		sugar_rate_real: (data.taux_sucre_moyen_2 !== 'NA') ? data.taux_sucre_moyen_2 : null
 		 	};
 		 	observations.push(entry);
 
