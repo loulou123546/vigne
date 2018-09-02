@@ -1,0 +1,222 @@
+<header class="w3-container w3-hide-small hero-bg w3-center w3-margin-32 w3-padding-32" style="padding-top: 0px!important;">
+    <div class="w3-container hero-bg w3-cell-row">
+        <div class="w3-cell onhover-bg w3-padding-16"><a href="/">Mon exploitation</a></div>
+        <div class="w3-cell onhover-bg w3-padding-16"><a href="/social">Espace collaboratif</a></div>
+        <div class="w3-cell onhover-bg w3-padding-16"><a href="/alerts">Alertes</a></div>
+        <div class="w3-cell onhover-bg w3-padding-16"><%= locals.mail || '' %></div>
+    </div>
+    <h1 class="w3-xxxlarge"><b>Espace Alertes</b></h1>
+    </header>
+    <header class="w3-container w3-hide-medium w3-hide-large hero-bg w3-center w3-padding-32">
+    <h1 class="w3-xlarge"><b>Espace Alertes</b></h1>
+    </header>
+    
+    <div id="mymodal" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+            <span onclick="document.getElementById('mymodal').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h3 class="hero-bg w3-xlarge w3-center" id="modal_name">{{nom de parcelle}}</h3>
+            <p>Le rendement de cette parcelle est de <span id="modal_rend">85</span> %. La moyenne est de 100%</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id='map' style='width: calc(100vw - 32px); height: 400px; margin: 16px;'></div>
+                    
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.48.0/mapbox-gl.js'></script>
+    <script>
+        let Increment = 0;
+    
+        mapboxgl.accessToken = 'pk.eyJ1IjoibG91bG91MTIzNTQ2IiwiYSI6ImNqbGl6MHptcjA2MDczcHIwMTU2ajIxYzIifQ.ju33SqTTHGHZdunbEx7VKg';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-streets-v10',
+            center: [4.360305, 48.960159],
+            zoom: 5
+        });
+    
+        
+        let receivedJSON = []
+        const req = new XMLHttpRequest();
+        req.onreadystatechange = function(event) {
+            // XMLHttpRequest.DONE === 4
+            if (this.readyState === XMLHttpRequest.DONE) {
+                if (this.status === 200) {
+                    receivedJSON = JSON.parse(this.responseText)
+                    let temp_r = []
+                    let temp_d = []
+                    let temp_y = []
+                    let temp_g = []
+                    receivedJSON.forEach(element => {
+                        if(element.rend < 1){
+                            temp_d.push({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        element.lng,
+                                        element.lat
+                                    ]
+                                }
+                            })
+                        } else if(element.rend < 3633){
+                            temp_r.push({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        element.lng,
+                                        element.lat
+                                    ]
+                                }
+                            })
+                        } else if(element.rend > 4440.337){
+                            temp_g.push({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        element.lng,
+                                        element.lat
+                                    ]
+                                }
+                            })
+                        } else {
+                            temp_y.push({
+                                "type": "Feature",
+                                "properties": {},
+                                "geometry": {
+                                    "type": "Point",
+                                    "coordinates": [
+                                        element.lng,
+                                        element.lat
+                                    ]
+                                }
+                            })
+                        }
+                        
+                    });
+                    map.addLayer({
+                        "id": "farmsR",
+                        "type": "symbol",
+                        "source": {
+                            "type": "geojson",
+                            "data": {
+                                "type": "FeatureCollection",
+                                "features": temp_d
+                            }
+                        },
+                        "layout": {
+                            "icon-image": "farmD",
+                            "icon-size": 0.05,
+                            "icon-allow-overlap": true
+                        }
+                    });
+                    map.addLayer({
+                        "id": "farmsR",
+                        "type": "symbol",
+                        "source": {
+                            "type": "geojson",
+                            "data": {
+                                "type": "FeatureCollection",
+                                "features": temp_r
+                            }
+                        },
+                        "layout": {
+                            "icon-image": "farmR",
+                            "icon-size": 0.05,
+                            "icon-allow-overlap": true
+                        }
+                    });
+                    map.addLayer({
+                        "id": "farmsY",
+                        "type": "symbol",
+                        "source": {
+                            "type": "geojson",
+                            "data": {
+                                "type": "FeatureCollection",
+                                "features": temp_y
+                            }
+                        },
+                        "layout": {
+                            "icon-image": "farmY",
+                            "icon-size": 0.05,
+                            "icon-allow-overlap": true
+                        }
+                    });
+                    map.addLayer({
+                        "id": "farmsG",
+                        "type": "symbol",
+                        "source": {
+                            "type": "geojson",
+                            "data": {
+                                "type": "FeatureCollection",
+                                "features": temp_g
+                            }
+                        },
+                        "layout": {
+                            "icon-image": "farmG",
+                            "icon-size": 0.05,
+                            "icon-allow-overlap": true
+                        }
+                    });
+                    map.resize();
+                    map.setZoom(6)
+                } else {
+                    alert("Erreur dans la recup AJAX")
+                }
+            }
+        };
+    
+        map.on('load', function () {
+            map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_r.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('farmR', image)
+            });
+            map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_g.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('farmG', image)
+            });
+            map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_y.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('farmY', image)
+            });
+            map.loadImage('https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/map_marker_d.png', function(error, image) {
+                if (error) throw error;
+                map.addImage('farmD', image)
+            });
+            req.open('GET', '/socialData', true);
+            req.send(null);
+        });
+    
+    
+        map.on("click", function(e) {
+            let res = {
+                lng: 0,
+                lat: 0,
+                rend: 0,
+                name: "sans nom",
+                dist: 2
+            }
+            receivedJSON.forEach(element => {
+                if(Math.abs(e.lngLat.lng - element.lng) + Math.abs(e.lngLat.lat - element.lat) < res.dist){
+                    res = {
+                        lng: element.lng,
+                        lat: element.lat,
+                        rend: element.rend,
+                        name: "test",
+                        dist: Math.abs(e.lngLat.lng - element.lng) + Math.abs(e.lngLat.lat - element.lat)
+                    }
+                }
+            });
+            if(res.dist < 2){
+                document.getElementById("modal_name").innerHTML = res.name
+                document.getElementById("modal_rend").innerHTML = ((res.rend / 4036.67) * 100).toFixed(2)
+                document.getElementById("mymodal").style.display = 'block'
+            }
+        });
+    </script>
