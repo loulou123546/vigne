@@ -22,38 +22,39 @@ const insertEntries = async (table_name, datasets) => {
     connection.end();
 }
 
-let farms = [];
-let users = [];
-let parcels = [];
-let observations = [];
 
-// Populate farm
-for (var i = 1 ; i < 15 ; i++) {
-	farms.push({
-		id: i,
-		name: `ADH${i}`
-	})
+const populateFarms = async () => {
+	let farms = [];
+	for (var i = 1 ; i < 15 ; i++) {
+		farms.push({
+			id: i,
+			name: `ADH${i}`
+		})
+	}
+	await insertEntries('farm', farms);
 }
 
-// Populate user
-users.push({
-	id: 1,
-	farm_id: 1,
-	mail: 'durand@pins.fr',
-	password: 'test',
-	first_name: 'Bernard',
-	last_name: 'Durand'
-});
-users.push({
-	id: 2,
-	farm_id: 1,
-	mail: 'martin@pins.fr',
-	password: 'test',
-	first_name: 'François',
-	last_name: 'Martin'	
-})
+const populateUsers = async () => {
+	const users = [{
+		id: 1,
+		farm_id: 1,
+		mail: 'durand@pins.fr',
+		password: 'test',
+		first_name: 'Bernard',
+		last_name: 'Durand'
+	}, {
+		id: 2,
+		farm_id: 1,
+		mail: 'martin@pins.fr',
+		password: 'test',
+		first_name: 'François',
+		last_name: 'Martin'	
+	}]
+	await insertEntries('user', users);
+}
 
-const populateFarmsUsersParcels = async () => {
+const populateParcels = async () => {
+	let parcels = [];
 	csv.fromPath("./config/TAB_parcel.csv", {headers: true}).on("data", async function(data){
 	 	let entry = {
 	 		farm_id: data.farm,
@@ -69,8 +70,6 @@ const populateFarmsUsersParcels = async () => {
 	 	parcels.push(entry);
 
 	}).on("end", async function(){
-		await insertEntries('farm', farms);
-		await insertEntries('user', users);
 		await insertEntries('parcel', parcels);
 	})
 };
@@ -94,6 +93,7 @@ const fetchParcelsByName = () => {
 }
 
 const populateObservations = async () => {
+	let observations = [];
 	fetchParcelsByName().then(parcelsByName => {
 		csv.fromPath("./config/TAB_obs.csv", {headers: true}).on("data", function(data){
 		 	let entry = {
@@ -129,8 +129,12 @@ const populateAlerts = async () => {
 	await insertEntries('alert', alerts);
 }
 
-if (process.argv[2] === 'parcel') {
-	populateFarmsUsersParcels();
+if (process.argv[2] === 'farm') {
+	populateFarms();
+} else if (process.argv[2] === 'user') {
+	populateUsers();
+} else if (process.argv[2] === 'parcel') {
+	populateParcels();
 } else if (process.argv[2] === 'observation') {
 	populateObservations();
 } else if (process.argv[2] === 'alert') {

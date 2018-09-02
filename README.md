@@ -15,8 +15,7 @@ Créer le fichier database-local.json avec ces informations de base de données.
 Exécuter le script mysql situé dans `config/vigne.sql`.
 
 Peupler la base de données via les commandes suivantes :
-* `npm run populate parcel`
-* `npm run populate observation`
+* `npm run populate`
 
 ## Routes
 

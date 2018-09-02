@@ -90,23 +90,3 @@ CREATE TABLE vigne.`alert` (
     REFERENCES vigne.user(`id`)
     ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=INNODB DEFAULT CHARSET=utf8;
-
-/*
-INSERT INTO vigne.farm (`id`, `name`) VALUES
-(1, 'La Ferme des Pins');
-
-INSERT INTO vigne.user (`id`, `farm_id`, `mail`, `password`, `first_name`, `last_name`) VALUES
-(1, 1, 'durand@pins.fr', 'test', 'Bernard', 'Durand'),
-(2, 1, 'martin@pins.fr', 'test', 'François', 'Martin');
-
-
-INSERT INTO vigne.parcel (`id`, `farm_id`, `name`, `area`, `type`, `date_planting`, `row_distance`, `plant_distance`, `lng`, `lat`) VALUES
-<<<<<<< HEAD
-(1, 1, 'Parcelle 1', 0.5, 1, '2014-05-28 00:00:00', 1, 1.15, '49.567251', '3.557852'),
-(2, 1, 'Parcelle 2', 0.5, 1, '2014-07-24 00:00:00', 1, 1.15, '49.578515', '3.694542'),
-(3, 1, 'Parcelle 3', 0.5, 1, '2013-09-14 00:00:00', 1, 1.15, '49.236585', '3.526866');
-*/
-
-/*
-INSERT INTO vigne.estimation (`id`, `parcel_id`, `date`) VALUES
-(1, 1, '2018-05-28 00:00:00');*/

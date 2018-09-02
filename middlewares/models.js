@@ -140,7 +140,7 @@ export const getAlerts = () => {
   return new Promise((resolve, reject) => {
     const connection = db.createConnection();
     const sql = `
-      SELECT * FROM alerts
+      SELECT * FROM alert
     `;
     connection.query(sql, (error, alerts) => {
       if (error) throw error
