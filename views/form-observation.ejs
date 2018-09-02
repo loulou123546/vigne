@@ -5,7 +5,7 @@
     <h1 class="w3-large"><b><%= locals.observation ? 'Éditer' : 'Ajouter' %> une observation</b></h1>
 </header>
 
-<ul class="breadcrumb w3-margin-32">
+<ul class="breadcrumb">
     <li><a href="/">Tableau de bord</a></li>
     <li><a href="/parcel/<%= locals.parcel.parcel_id %>"><%= locals.parcel.name %></a></li>
     <li><%= locals.observation ? 'Edition' : 'Ajout' %> observation</li>
@@ -18,7 +18,7 @@
 
     <form method="post" action="<%= locals.observation ? `/parcel/${locals.parcel.parcel_id}/observation/${locals.observation.id}/edit` : `/parcel/${locals.parcel.parcel_id}/observation/add` %>" >
 
-      <div class="w3-container w3-card-4 w3-margin w3-white">
+      <div class="w3-container w3-card-4 w3-margin w3-our-blue">
         <h3>Étape 1</h3>
 
         <p><label>Date d'observation</label>
@@ -35,7 +35,7 @@
 
       <br/>
 
-      <div class="w3-container w3-card-4 w3-margin w3-white">
+      <div class="w3-container w3-card-4 w3-margin w3-our-blue">
         <h3>Étape 2</h3>
 
         <p><label>Date d'observation</label>
@@ -50,7 +50,7 @@
 
       <br/>
 
-      <div class="w3-container w3-card-4 w3-margin w3-white">
+      <div class="w3-container w3-card-4 w3-margin w3-our-blue">
         <h3>Étape 3</h3>
 
         <p><label>Date d'observation</label>

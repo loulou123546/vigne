@@ -1,24 +1,20 @@
 /* https://colorhunt.co/palette/117699 */
 .main-bg{
-    background-color: #dbf1f2!important;
-    color: black!important;
+    background-color: #283149 !important;
+    color: #dbedf3 !important;
 }
 .hero-bg{
-    background-color: #882042!important;
-    color: white!important;
+    background-color: #404b69 !important;
     margin-bottom: 10px;
 }
 .action-bg{
-    background-color: #4CAF50!important;
-    color: white!important;
+    background-color: #00818a !important;
 }
 .hover-bg{
-    background-color: #446e5c!important;
-    color: white!important;
+    background-color: #446e5c !important;
 }
 .onhover-bg:hover{
     background-color: #446e5c!important;
-    color: white!important;
 }
 
 .hero-text{
@@ -113,7 +109,6 @@ td .w3-button {
 }
 
 .add-parcel {
-  border-radius: 14px;
   margin: 30px;
 }
 
@@ -122,8 +117,6 @@ td .w3-button {
 ul.breadcrumb {
     padding: 10px 16px;
     list-style: none;
-    background-color: #fff;
-    color: #000;
     text-align: left;
 }
 
@@ -151,10 +144,6 @@ ul.breadcrumb li a:hover {
     color: #01447e;
     text-decoration: underline;
 }
-.round,
-.w3-white {
-  border-radius: 14px;
-}
 
 .size-fixed a {
   margin-bottom: 10px;
@@ -166,4 +155,28 @@ h2 strong {
 
 .card {
   font-size: 21px;
+}
+.card .w3-large {
+  display: block;
+  background: #882042;
+  padding: 10px;
+}
+
+.w3-our-blue {
+  color: #dbedf3 !important;
+  background-color: #404b69 !important;
+}
+
+.img-login {
+  text-align: center;
+}
+
+.img-login img {
+  width: 500px;
+}
+
+@media (max-width: 800px) {
+  .img-login img {
+    width: 100%;
+  }
 }

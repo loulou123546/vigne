@@ -9,6 +9,6 @@
     event.preventDefault()
   }
 
-  document.querySelectorAll('.w3-red')
+  document.querySelectorAll('.tool-red')
     .forEach(currentValue => currentValue.addEventListener('click', isDelete))
 })()

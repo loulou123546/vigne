@@ -5,7 +5,7 @@
     <h1 class="w3-large"><b><%= locals.parcel ? 'Éditer' : 'Ajouter' %> une parcelle</b></h1>
 </header>
 
-<ul class="breadcrumb w3-margin-32">
+<ul class="breadcrumb">
     <li><a href="/">Tableau de bord</a></li>
     <% if (locals.parcel) { %>
     <li><a href="/parcel/<%= locals.parcel.parcel_id %>"><%= locals.parcel.name %></a></li>
@@ -16,7 +16,7 @@
 <div class="w3-row">
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
   <div class="w3-col s12 m8 l4">
-    <form class="w3-container w3-card-4 w3-white w3-margin" method="post" action="<%= locals.parcel ? `/parcel/${locals.parcel.parcel_id}/edit` : '/parcel/add' %>">
+    <form class="w3-container w3-card-4 w3-our-blue w3-margin" method="post" action="<%= locals.parcel ? `/parcel/${locals.parcel.parcel_id}/edit` : '/parcel/add' %>">
       <p><label>Nom</label>
       <input class="w3-input w3-border" name="name" type="text" placeholder="Nom" value="<%= locals.parcel ? locals.parcel.name : '' %>" required></p>
 
@@ -47,7 +47,7 @@
 
       <div id='map' style='width: 100%; height: 400px;'></div>
 
-      <p class="w3-center"><button class="w3-btn action-bg onhover-bg">Valider <i class="fa fa-check-square"></i></button></p>
+      <p class="w3-center"><button class="w3-btn action-bg onhover-bg">Sauvegarder <i class="fa fa-check-square"></i></button></p>
     </form>
   </div>
   <div class="w3-col w3-hide-small m2 l4"> &nbsp; </div>
