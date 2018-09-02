@@ -238,6 +238,7 @@ router.get('/socialData', (request, response) => {
     parcels.map((parcel) => {
       if (parcel.id) {
         results.push({
+          name: parcel.name,
           lat: parcel.lat,
           lng: parcel.lng,
           rend: rendement.grappeMetreCarre(
@@ -257,16 +258,13 @@ router.get('/socialData', (request, response) => {
 router.get('/alerts', (request, response) => {
   models.getAlerts().then(alerts => {
     console.log(alerts)
-    /*response.render('layout', {
+    response.render('layout', {
       view: 'alert',
-      title: 'Alertes'
-    })*/
+      title: 'Alertes',
+      alerts: alerts
+    })
   });
 })
 
-router.post('/alerts', (request, response) => {
-  console.log('post alert')
-  console.log(request.body)
-})
 
 export default router
