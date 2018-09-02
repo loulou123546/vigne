@@ -91,6 +91,9 @@ router.get('/parcel/add', checkSignIn, (request, response) => {
 // Add parcel.
 router.post('/parcel/add', checkSignIn, (request, response) => {
   let parcelData = request.body
+  if (parcelData['date_planting'] === '') {
+    parcelData['date_planting'] = null;
+  }
   // Get from session ?
   parcelData['farm_id'] = 1;
   models.postParcel(parcelData).then(() => {
@@ -114,6 +117,9 @@ router.get('/parcel/:pid(\\d+)/edit', checkSignIn, (request, response) => {
 // Edit parcel.
 router.post('/parcel/:pid(\\d+)/edit', checkSignIn, (request, response) => {
   let parcelData = request.body
+  if (parcelData['date_planting'] === '') {
+    parcelData['date_planting'] = null;
+  }
   // Get from session ?
   parcelData['farm_id'] = 1
   models.putParcel(parcelData, request.params.pid).then(() => {
@@ -253,6 +259,7 @@ router.get('/socialData', (request, response) => {
     let results = [];
     parcels.map((parcel) => {
       if (parcel.id) {
+        console.log(parcel.name)
         results.push({
           name: parcel.name,
           lat: parcel.lat,
