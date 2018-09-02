@@ -91,8 +91,8 @@ const populateParcels = async () => {
 	 		date_planting: (data.date_planting !== 'NA') ? data.date_planting : null,
 	 		row_distance: data.dist_inter_rang,
 	 		plant_distance: data.dist_inter_plant,
-	 		lat: data.lat,
-	 		lng: data.lon
+	 		lat: parseFloat(data.lat) + Math.random() - 0.5,
+	 		lng: parseFloat(data.lon) + Math.random() - 0.5
 	 	};
 	 	parcels.push(entry);
 
