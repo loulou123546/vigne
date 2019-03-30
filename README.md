@@ -4,7 +4,7 @@
 ![npm version](https://img.shields.io/badge/npm-&#10878;3.8.6-green.svg)
 ![ISC license](https://img.shields.io/badge/licence-ISC-blue.svg)
 
-![logo](https://raw.githubusercontent.com/NerOcrO/vigne/master/assets/logo-name.png)
+![logo](https://raw.githubusercontent.com/loulou123546/vigne/master/assets/logo-name.png)
 
 ## Présentation
 
