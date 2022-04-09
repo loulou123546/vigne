@@ -39,7 +39,7 @@
     "express-session": "^1.15.6",
     "fast-csv": "^2.4.1",
     "helmet": "^3.13.0",
-    "moment": "^2.22.2",
+    "moment": "^2.29.2",
     "mysql": "^2.16.0",
     "papaparse": "^4.6.0"
   },
